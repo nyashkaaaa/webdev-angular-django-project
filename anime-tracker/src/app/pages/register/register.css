@@ -1,0 +1,275 @@
+/* 1. ГЛАВНЫЙ КОНТЕЙНЕР-РАЗДЕЛИТЕЛЬ */
+.login-split-container {
+  display: flex;
+  width: 100%;
+  min-height: 100vh; /* Разрешаем растягиваться вниз */
+  margin: 0;
+  padding: 0;
+  overflow-y: auto; /* Добавляем скролл, если форма не влезает */
+  background-color: #121212;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* 2. ЛЕВАЯ СТОРОНА: КАРТИНКА */
+.login-image-side {
+  flex: 1;
+  position: sticky; /* Картинка замирает при скролле формы */
+  top: 0;
+  height: 100vh;
+  background-color: #121212;
+}
+
+.login-side-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.8;
+}
+
+.img-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Плавный переход от картинки к темному фону формы справа */
+  background: linear-gradient(to left, #121212, transparent, rgba(18, 18, 18, 0.3));
+}
+
+/* Текст поверх картинки */
+.image-text-content {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  text-align: center;
+  z-index: 5;
+}
+
+.image-text-content p {
+  color: white;
+  font-size: 16px;
+  font-weight: 300;
+  text-shadow: 0 2px 15px rgba(0,0,0,0.9);
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+/* 3. ПРАВАЯ СТОРОНА: ФОРМА */
+.login-form-side {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 40px; /* Отступы сверху/снизу, чтобы форма не обрезалась */
+  background-color: #121212;
+  z-index: 2;
+}
+
+/* КАРТОЧКА (Glassmorphism) */
+.login-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 40px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  text-align: center;
+}
+
+/* Шапка формы */
+.login-header h2 {
+  color: white;
+  font-size: 30px;
+  margin: 15px 0 8px;
+  font-weight: 600;
+}
+
+.login-header p {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 35px;
+}
+
+.form-logo {
+  width: 55px;
+  height: auto;
+  filter: drop-shadow(0 0 8px rgba(255, 64, 129, 0.4));
+}
+
+/* ПОЛЯ ВВОДА И ИНТЕРВАЛЫ */
+.input-group {
+  margin-bottom: 15px; /* Увеличенный интервал между блоками */
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  color: #ccc;
+  font-size: 14px;
+  margin-bottom: 10px; /* Интервал между текстом и инпутом */
+  margin-left: 4px;
+}
+
+/* Обертка для пароля с глазом */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: white;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+  border-color: #ff4081;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 15px rgba(255, 64, 129, 0.2);
+}
+
+/* Кнопка переключения видимости пароля */
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  opacity: 0.5;
+  transition: 0.3s;
+}
+
+.toggle-password:hover {
+  opacity: 1;
+}
+
+.toggle-password img {
+  width: 20px;
+  filter: invert(1); /* Делаем иконку белой */
+}
+
+/* 4. ОПЦИИ И КНОПКИ */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -10px;
+  margin-bottom: 30px;
+  font-size: 13px;
+}
+
+.remember-me {
+  color: #888;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.remember-me input {
+  margin-right: 8px;
+  accent-color: #ff4081;
+}
+
+.forgot-password {
+  color: #ff4081;
+  text-decoration: none;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  background-color: #ff4081;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 15px rgba(255, 64, 129, 0.3);
+}
+
+.submit-btn:hover {
+  background-color: #e91e63;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 64, 129, 0.4);
+}
+
+/* 5. РАЗДЕЛИТЕЛЬ И ТЕКСТ ВНИЗУ */
+.divider {
+  margin: 30px 0;
+  position: relative;
+  text-align: center;
+}
+
+.divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.divider span {
+  position: relative;
+  background: #1a1a1a; /* Должен совпадать с фоном под карточкой */
+  padding: 0 15px;
+  color: #555;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.terms-text {
+  margin-top: 25px;
+  font-size: 11px;
+  color: #666;
+  line-height: 1.5;
+}
+
+.terms-text a {
+  color: #888;
+  text-decoration: underline;
+}
+
+.terms-text a:hover {
+  color: #ff4081;
+}
+
+.login-footer {
+  margin-top: 30px;
+  font-size: 14px;
+  color: #888;
+}
+
+.login-footer a {
+  color: #ff4081;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* 6. АДАПТИВНОСТЬ */
+@media (max-width: 950px) {
+  .login-image-side {
+    display: none; /* Скрываем картинку на планшетах и телефонах */
+  }
+  .login-form-side {
+    padding: 30px 20px;
+  }
+}

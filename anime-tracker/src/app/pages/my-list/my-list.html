@@ -1,0 +1,16 @@
+
+<div *ngFor="let item of myList">
+
+  <h3>{{ item.anime.title }}</h3>
+
+  <select [(ngModel)]="item.status">
+    <option>Watching</option>
+    <option>Completed</option>
+  </select>
+
+  <input [(ngModel)]="item.score">
+
+  <button (click)="update(item)">Save</button>
+  <button (click)="delete(item.id)">Delete</button>
+
+</div>

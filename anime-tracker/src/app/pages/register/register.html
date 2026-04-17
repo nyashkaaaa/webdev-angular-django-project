@@ -1,0 +1,65 @@
+<div class="login-split-container">
+  
+  <div class="login-image-side">
+    <img src="https://www.pngarts.com/files/8/Anime-Transparent-Image.png" class="login-side-img">
+    <div class="img-overlay">
+      <div class="image-text-content">
+        <p>Стань частью сообщества: создавай списки, делись впечатлениями и находи друзей.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="login-form-side">
+    <div class="login-card">
+      <div class="login-header">
+        
+        <h2>Create Account</h2>
+        <p>Join AniList and start your journey</p>
+      </div>
+
+      <form class="login-form">
+        <div class="input-group">
+            <label>Password</label>
+            <div class="password-wrapper">
+                <input 
+                #passwordField
+                [type]="isPasswordVisible ? 'text' : 'password'" 
+                placeholder="••••••••">
+                
+                <button type="button" class="toggle-password" (click)="isPasswordVisible = !isPasswordVisible">
+                <img [src]="isPasswordVisible 
+                    ? 'https://img.icons8.com/material-outlined/24/ffffff/visible.png' 
+                    : 'https://img.icons8.com/material-outlined/24/ffffff/hide.png'" 
+                    alt="toggle visibility">
+                </button>
+            </div>
+            </div>
+
+        <div class="input-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="example@mail.com">
+        </div>
+
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" placeholder="••••••••">
+        </div>
+
+        <button type="submit" class="submit-btn">Sign Up</button>
+      </form>
+
+      <div class="terms-text">
+        By creating an account, I agree to AniList's 
+        <a href="#">Terms of Service</a>, 
+        <a href="#">Privacy Policy</a> and 
+        <a href="#">Intellectual Property Rights</a>.
+      </div>
+
+      <div class="login-footer">
+        <span>Already have an account? </span>
+        <a routerLink="/login">Login</a>
+      </div>
+    </div>
+  </div>
+
+</div>

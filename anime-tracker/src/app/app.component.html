@@ -1,0 +1,50 @@
+<nav class="navbar">
+  <div class="logo-wrapper" routerLink="/anime">
+    <img src="https://img.icons8.com/?size=160&id=DmaIlTlcjYLw&format=png" class="logo-icon" alt="Applevein Logo">
+    <h1 class="logo-text">Applevein</h1>
+  </div>
+
+  <div class="nav-links">
+    <div class="dropdown-wrapper">
+      <a class="nav-item" (click)="toggleDropdown($event)">Категории</a>
+      
+      <div class="dropdown-menu" *ngIf="isDropdownOpen">
+        <div class="dropdown-header">Жанры</div>
+        <div class="genres-grid">
+          <div class="genre-column">
+            <a class="genre-item">Экшен</a>
+            <a class="genre-item">Приключение</a>
+            <a class="genre-item">Комедия</a>
+            <a class="genre-item">Драма</a>
+            <a class="genre-item">Фэнтези</a>
+          </div>
+          <div class="genre-column">
+            <a class="genre-item">Музыкальные</a>
+            <a class="genre-item">Романтика</a>
+            <a class="genre-item">Научная фантастика</a>
+            <a class="genre-item">Сэйнэн</a>
+            <a class="genre-item">Сёдзё</a>
+          </div>
+          <div class="genre-column">
+            <a class="genre-item">Сёнен</a>
+            <a class="genre-item">Повседневность</a>
+            <a class="genre-item">Спорт</a>
+            <a class="genre-item">Мистика</a>
+            <a class="genre-item">Триллер</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+     <a routerLink="/popular" class="nav-item">Популярное</a>
+    <a routerLink="/my-list">Мой список</a>
+    <a routerLink="/login">Войти</a>
+    <a routerLink="/register" class="signup-btn">Присоединиться</a>
+  </div>
+</nav>
+
+<div class="site-overlay" *ngIf="isDropdownOpen" (click)="closeDropdown()"></div>
+
+<main class="container">
+  <router-outlet></router-outlet>
+</main>

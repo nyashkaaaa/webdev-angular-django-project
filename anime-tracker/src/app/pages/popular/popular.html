@@ -1,0 +1,23 @@
+<main class="container">
+  
+  <section class="anime-section">
+    <h3> Самое популярное </h3>
+    <h2 class="section-title">Популярное</h2>
+    
+    <div class="anime-grid">
+      <div class="anime-card" *ngFor="let anime of allAnimes">
+        <div class="card-image-wrapper">
+          <img [src]="anime.image_url" [alt]="anime.title">
+        </div>
+        <div class="anime-info">
+          <p class="anime-name">{{ anime.title }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div *ngIf="allAnimes.length === 0" class="loading-text">
+    Подключаемся к базе Applevein...
+  </div>
+
+</main>
