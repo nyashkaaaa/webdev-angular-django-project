@@ -1,4 +1,3 @@
-
 * {
   font-family: 'Inter', 'Poppins', sans-serif;
   margin: 0;
@@ -10,13 +9,13 @@ body {
   background-color: #000000; 
 }
 
-/* 2. Навигационная панель (Шапка) */
+/* Шапка */
 .navbar {
   background-color: #272727;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 0 40px; /* Здесь оставляем 40, чтобы логотип не улетел слишком далеко */
+  padding: 0 40px; 
   height: 70px;
   position: sticky;
   top: 0;
@@ -33,9 +32,8 @@ body {
 }
 
 .logo-icon {
-  width: 32px;
-  height: 32px;
-  filter: invert(1) sepia(1) saturate(10000%) hue-rotate(342deg);
+  width: 28px;
+  height: 28px;
 }
 
 .logo-text {
@@ -49,6 +47,7 @@ body {
   display: flex;
   align-items: center;
   height: 100%;
+  flex: 1; /* важно: растягивает блок на всю оставшуюся ширину */
 }
 
 .nav-links a, .nav-item {
@@ -69,7 +68,7 @@ body {
   color: #ffffff;
 }
 
-/* 3. Выпадающее меню (Категории) */
+/*Категории*/
 .dropdown-wrapper {
   position: relative;
   height: 100%;
@@ -79,9 +78,9 @@ body {
   position: absolute;
   top: 70px;
   left: 0;
-  width: 700px;
+  width: 500px;
   background-color: #151515;
-  padding: 30px;
+  padding: 24px 30px;
   z-index: 2100;
   border: 1px solid #272727;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
@@ -91,7 +90,7 @@ body {
   color: #bbbbbb;
   font-size: 14px;
   font-weight: 600;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -99,13 +98,7 @@ body {
 .genres-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-}
-
-.genre-column {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  gap: 6px 20px;
 }
 
 .genre-item {
@@ -135,7 +128,6 @@ body {
   padding-left: 15px;
 }
 
-
 .main-header {
   width: 100%;
   height: 450px;
@@ -145,3 +137,88 @@ body {
   display: flex;
 }
 
+.profile-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px !important; 
+  min-width: 38px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  text-decoration: none;
+  margin-left: auto; /* вот это двигает иконку вправо */
+  padding: 0 !important; 
+}
+
+.profile-icon-btn:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+/* Иконка яблока */
+.logo-icon {
+  cursor: pointer;
+  position: relative;
+  z-index: 3001; /* Чуть выше, чем обертка */
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.logo-icon:hover {
+  transform: scale(1.2) rotate(10deg);
+}
+
+/* Окно с видео */
+.video-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.95); /* Глубокий черный фон */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999 !important; /* Прямо в космос, поверх всего */
+}
+
+/* Контейнер видео */
+.video-container {
+  position: relative;
+  width: 90%;
+  max-width: 900px;
+  aspect-ratio: 16 / 9;
+  box-shadow: 0 0 50px rgba(226, 6, 44, 0.6); /* Красный ореол Applevein */
+}
+
+.video-container iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+}
+
+.search-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px !important;
+  min-width: 38px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.2);
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  padding: 0 !important;
+  margin-left: 30%;
+}
+
+.search-icon-btn:hover {
+  border-color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.08);
+}

@@ -1,0 +1,148 @@
+<div class="profile-page">
+
+  <!-- ШАПКА ПРОФИЛЯ -->
+  <div class="profile-header">
+    <div class="profile-header-inner">
+      <div class="avatar-wrapper">
+        <div class="avatar">
+            <img *ngIf="user.avatar" [src]="user.avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+            <svg *ngIf="!user.avatar" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+        </div>
+        <div class="online-dot"></div>
+      </div>
+
+      <div class="profile-info">
+        <div class="profile-name-row">
+          <h1 class="profile-username">{{ user.username }}</h1>
+          <span class="level-badge">Ранг {{ user.level }}</span>
+        </div>
+        <div class="profile-stats">
+          <div class="stat-item">
+            <span class="stat-value">{{ user.totalAnime }}</span>
+            <span class="stat-label">Аниме</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-value">{{ user.totalEpisodes }}</span>
+            <span class="stat-label">Серий</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-value">{{ user.totalHours }}</span>
+            <span class="stat-label">Часов</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="settings-btn" routerLink="/profile-settings">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+        Настройки
+      </button>
+    </div>
+
+    <!-- ТАБЫ -->
+    <div class="profile-tabs">
+      <button class="tab-btn" [class.active]="activeTab === 'list'" (click)="setTab('list')">Список аниме</button>
+      <button class="tab-btn" [class.active]="activeTab === 'reviews'" (click)="setTab('reviews')">Отзывы</button>
+      <button class="tab-btn" [class.active]="activeTab === 'history'" (click)="setTab('history')">История</button>
+    </div>
+  </div>
+
+  <!-- КОНТЕНТ -->
+  <div class="profile-body">
+
+    <!-- СПИСОК АНИМЕ -->
+    <div *ngIf="activeTab === 'list'" class="list-layout">
+
+      <!-- Боковая панель -->
+      <aside class="sidebar">
+        <div class="sidebar-title">Списки</div>
+        <button
+          *ngFor="let key of ['all', 'watching', 'completed', 'planned', 'dropped']"
+          class="sidebar-item"
+          [class.active]="activeStatus === key"
+          (click)="setStatus(key)"
+        >
+          <span>{{ statusLabels[key] }}</span>
+          <span class="sidebar-count">{{ statusCounts[key] }}</span>
+        </button>
+
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-title">Вид</div>
+        <button class="sidebar-item" [class.active]="viewMode === 'list'" (click)="viewMode = 'list'">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          Список
+        </button>
+        <button class="sidebar-item" [class.active]="viewMode === 'grid'" (click)="viewMode = 'grid'">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          Плитка
+        </button>
+      </aside>
+
+      <!-- Основной контент -->
+      <div class="list-main">
+
+        <!-- Список -->
+        <div *ngIf="viewMode === 'list'" class="anime-list">
+          <div *ngIf="filteredList.length === 0" class="empty-state">
+            Список пуст
+          </div>
+          <div class="anime-list-item" *ngFor="let entry of filteredList">
+            <img class="list-poster" [src]="entry.anime?.image_url" [alt]="entry.anime?.title">
+            <div class="list-info">
+              <p class="list-title">{{ entry.anime?.title }}</p>
+              <p class="list-meta">{{ entry.anime?.episodes }} серий</p>
+            </div>
+            <div class="list-status">
+              <span class="status-badge" [class]="'status-' + entry.status">
+                {{ statusLabels[entry.status] }}
+              </span>
+            </div>
+            <div class="list-score" *ngIf="entry.score">
+              <span class="score-value">{{ entry.score }}</span>
+              <span class="score-label">/10</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Плитка -->
+        <div *ngIf="viewMode === 'grid'" class="anime-grid">
+          <div class="grid-card" *ngFor="let entry of filteredList">
+            <img [src]="entry.anime?.image_url" [alt]="entry.anime?.title">
+            <div class="grid-overlay">
+              <p class="grid-title">{{ entry.anime?.title }}</p>
+              <span class="status-badge" [class]="'status-' + entry.status">{{ statusLabels[entry.status] }}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ОТЗЫВЫ -->
+    <div *ngIf="activeTab === 'reviews'" class="tab-placeholder">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <p>Отзывы появятся здесь</p>
+    </div>
+
+    <!-- ИСТОРИЯ -->
+    <div *ngIf="activeTab === 'history'" class="tab-placeholder">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <p>История просмотров появится здесь</p>
+    </div>
+
+    <app-profile-settings
+    *ngIf="showSettings"
+    (close)="showSettings = false"
+    (save)="onSettingsSave($event)"
+    />
+
+  </div>
+</div>
+

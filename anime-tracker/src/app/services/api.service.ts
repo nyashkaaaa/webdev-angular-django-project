@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,20 +7,24 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  // Базовый URL твоего друга (Django)
   private url = 'http://127.0.0.1:8000/api';
 
   constructor(private http: HttpClient) {}
 
-  // --- РАБОТА С КАТАЛОГОМ АНИМЕ ---
+  private authHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+  }
 
-  // Получить все аниме
+  // --- АНИМЕ ---
+
   getAnime(): Observable<any[]> {
     return this.http.get<any[]>(`${this.url}/anime/`);
   }
 
-  // Получить детали конкретного аниме
-  getAnimeById(id: number): Observable<any> {
+  getAnimeById(id: number | string): Observable<any> {
     return this.http.get<any>(`${this.url}/anime/${id}/`);
   }
 
@@ -34,31 +38,35 @@ export class ApiService {
     return this.http.post(`${this.url}/register/`, data);
   }
 
-  // --- ЛИЧНЫЙ СПИСОК (MY LIST) ---
+  googleAuth(credential: string): Observable<any> {
+    return this.http.post(`${this.url}/auth/google/`, { credential });
+  }
 
-  // Получить список пользователя
+  // --- ЛИЧНЫЙ СПИСОК ---
+
   getMyList(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.url}/my-list/`);
+    return this.http.get<any[]>(`${this.url}/my-list/`, { headers: this.authHeaders() });
   }
 
-  // Добавить аниме в список
   addToList(data: { anime: number }): Observable<any> {
-    return this.http.post(`${this.url}/my-list/`, data);
+    return this.http.post(`${this.url}/my-list/`, data, { headers: this.authHeaders() });
   }
 
-  // Обновить статус аниме в списке (например, "просмотрено")
   updateList(id: number, data: any): Observable<any> {
-    return this.http.put(`${this.url}/my-list/${id}/`, data);
+    return this.http.patch(`${this.url}/my-list/${id}/`, data, { headers: this.authHeaders() });
   }
 
-  // Удалить из списка
   deleteFromList(id: number): Observable<any> {
-    return this.http.delete(`${this.url}/my-list/${id}/`);
+    return this.http.delete(`${this.url}/my-list/${id}/`, { headers: this.authHeaders() });
   }
 
   // --- ОТЗЫВЫ ---
 
   addReview(animeId: number, data: any): Observable<any> {
-    return this.http.post(`${this.url}/anime/${animeId}/reviews/`, data);
+    return this.http.post(
+      `${this.url}/reviews/`,
+      { anime: animeId, text: data.text },
+      { headers: this.authHeaders() }
+    );
   }
 }

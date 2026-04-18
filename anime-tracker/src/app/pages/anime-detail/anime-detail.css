@@ -1,99 +1,307 @@
-/* Стили для звездного рейтинга */
-.star-rating {
-  margin-bottom: 15px;
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.detail-page {
+  background-color: #0f1014;
+  min-height: 100vh;
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+}
+
+/* BANNER */
+.banner {
+  position: relative;
+  width: 100%;
+  min-height: 560px;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(10, 11, 15, 0.97) 0%,
+    rgba(10, 11, 15, 0.75) 55%,
+    rgba(10, 11, 15, 0.1) 100%
+  ),
+  linear-gradient(
+    to top,
+    rgba(10, 11, 15, 1) 0%,
+    transparent 40%
+  );
+}
+
+.banner-content {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
-  gap: 5px;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 40px 60px;
+  gap: 40px;
 }
 
-.star-rating span {
-  font-size: 24px;
+.banner-left {
+  max-width: 580px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: fadeInLeft 0.6s ease both;
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.1);
+  color: #ccc;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.badge.genre {
+  color: #f47521;
+  border-color: rgba(244, 117, 33, 0.4);
+  background: rgba(244, 117, 33, 0.08);
+}
+
+.anime-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 56px;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  color: #fff;
+}
+
+.meta-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.episodes {
+  font-size: 14px;
+  color: #a0a0b0;
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.btn-play {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f47521;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  letter-spacing: 0.03em;
+}
+
+.btn-play:hover {
+  background: #e06510;
+  transform: scale(1.03);
+}
+
+.play-icon {
+  font-size: 13px;
+}
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  border: 2px solid rgba(255,255,255,0.25);
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.btn-icon:hover {
+  border-color: #fff;
+  background: rgba(255,255,255,0.08);
+}
+
+.description {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #b0b0c0;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+/* POSTER */
+.banner-right {
+  flex-shrink: 0;
+  animation: fadeInRight 0.6s ease 0.15s both;
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.poster {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+}
+
+/* REVIEWS */
+.reviews-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 40px 80px;
+}
+
+.reviews-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  letter-spacing: 0.05em;
+  margin-bottom: 24px;
+  color: #fff;
+}
+
+.review-form {
+  background: #1a1b22;
+  border-radius: 10px;
+  padding: 24px;
+  border: 1px solid rgba(255,255,255,0.07);
+}
+
+.review-input {
+  width: 100%;
+  background: #0f1014;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  padding: 14px;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.review-input:focus {
+  border-color: #f47521;
+}
+
+.review-form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.star {
+  font-size: 22px;
   color: #444;
   cursor: pointer;
-  transition: 0.2s;
+  transition: color 0.15s, transform 0.15s;
 }
 
-.star-rating span.active, 
-.star-rating span:hover {
-  color: #ffeb3b; /* Золотой цвет активных звезд */
+.star:hover,
+.star.active {
+  color: #f47521;
+}
+
+.star:hover {
+  transform: scale(1.2);
 }
 
 .rating-value {
-  margin-left: 15px;
-  font-weight: bold;
-  color: #ff4081;
+  margin-left: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #f47521;
 }
 
-/* Стили формы */
-.review-section {
-  margin-top: 50px;
-  padding: 30px;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.review-section h3 {
-  margin-top: 0;
-  margin-bottom: 20px;
-}
-
-.review-section textarea {
-  width: 100%;
-  height: 120px;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  color: white;
-  padding: 15px;
-  font-family: inherit;
-  resize: none;
-  outline: none;
-  transition: 0.3s;
-}
-
-.review-section textarea:focus {
-  border-color: #ff4081;
-}
-
-.submit-review-btn {
-  margin-top: 15px;
-  background: #ff4081;
-  color: white;
+.btn-submit {
+  background: #f47521;
+  color: #fff;
   border: none;
-  padding: 12px 25px;
-  border-radius: 8px;
-  font-weight: 600;
+  border-radius: 6px;
+  padding: 10px 28px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
   cursor: pointer;
-  transition: 0.3s;
+  transition: background 0.2s;
 }
 
-.submit-review-btn:disabled {
-  background: #555;
-  cursor: not-allowed;
+.btn-submit:hover {
+  background: #e06510;
 }
 
-/* Лоадер */
-.loader-container {
+/* LOADING */
+.loading {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  color: #888;
+  min-height: 100vh;
 }
 
 .spinner {
-  width: 50px;
-  height: 50px;
-  border: 5px solid rgba(255, 64, 129, 0.1);
-  border-top: 5px solid #ff4081;
+  width: 44px;
+  height: 44px;
+  border: 3px solid rgba(255,255,255,0.1);
+  border-top-color: #f47521;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 20px;
+  animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  to { transform: rotate(360deg); }
 }

@@ -1,50 +1,36 @@
 <div class="main-container">
-  <header class="main-header">
-    <h1 class="huge-title">Самое популярное</h1>
-    <h2 class="sub-title">популярное</h2>
-  </header>
-
+  <div class="list-header" *ngIf="activeGenre">
+    <span class="genre-badge">{{ activeGenreName }}</span>
+    <a class="clear-filter" routerLink="/anime">✕ Сбросить фильтр</a>
+  </div>
   <div class="anime-grid">
     @for (anime of animeList; track anime.id) {
-      
       @if (anime.title.toLowerCase().includes(search.toLowerCase())) {
         
-        <div class="anime-card" [routerLink]="['/anime', anime.id]">
+        <div class="anime-card" (click)="goToDetail($event, anime.id)">
           <div class="card-image-wrap">
-            <img [src]="anime.posterUrl || 'https://via.placeholder.com/300x450'" class="main-poster">
+            <img [src]="anime.image_url || 'https://via.placeholder.com/300x450'" class="main-poster">
             
             <div class="info-overlay">
               <div class="overlay-content">
                 <div class="meta-row">
-                  <span class="rating">★ {{ anime.rating || 'N/A' }}</span>
-                  <span class="stats">{{ anime.episodes }} серий</span>
+                  <span class="rating" *ngIf="anime.rating">★ {{ anime.rating }}</span>
+                  <span class="stats"> {{ anime.episodes }} {{ getEpisodeWord(anime.episodes) }}</span>
                 </div>
-                <p class="description">
-                  {{ anime.description || 'Описание отсутствует...' }}
-                </p>
+                <p class="description">{{ anime.description }}</p>
+                
                 <div class="action-icons">
                   <button class="icon-btn" (click)="$event.stopPropagation(); addToList(anime.id)">
                     <img src="https://img.icons8.com/ios-filled/50/ffffff/like.png">
-                  </button>
-                  <button class="icon-btn">
-                    <img src="https://img.icons8.com/ios-filled/50/ffffff/info.png">
                   </button>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="card-title-external">
-            {{ anime.title }}
-          </div>
+          <div class="card-title-external">{{ anime.title }}</div>
         </div>
-
       }
-
-    } @empty {
-      <div class="loading-state">
-        <p>Loading anime library...</p>
-      </div>
     }
   </div>
 </div>

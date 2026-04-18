@@ -1,3 +1,30 @@
+.list-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 20px 0;
+}
+
+.genre-badge {
+  background: rgba(244, 117, 33, 0.15);
+  border: 1px solid rgba(244, 117, 33, 0.4);
+  color: #f47521;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+.clear-filter {
+  color: #888;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.clear-filter:hover { color: #fff; }
+
 .anime-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -6,12 +33,13 @@
 }
 
 .anime-card {
-  border: 1px solid #ddd;
+  border: 1px solid #000000;
   border-radius: 8px;
   padding: 15px;
   text-align: center;
-  background-color: #f9f9f9;
+  background-color: #000000;
   transition: transform 0.2s;
+  cursor: pointer;
 }
 
 .anime-card:hover {
@@ -71,16 +99,16 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(18, 18, 18, 0.85); /* Затемнение */
+  background: rgba(18, 18, 18, 0.85); 
   display: flex;
-  align-items: flex-end; /* Текст прижат к низу, но внутри оверлея */
+  align-items: flex-end; 
   padding: 15px;
   box-sizing: border-box;
   
   /* Эффект появления */
   opacity: 0;
   transition: opacity 0.3s ease;
-  backdrop-filter: blur(4px); /* Легкое размытие картинки под текстом */
+  backdrop-filter: blur(4px);
 }
 
 /* ПОЯВЛЕНИЕ ПРИ НАВЕДЕНИИ */
@@ -89,10 +117,10 @@
 }
 
 .anime-card:hover .main-poster {
-  transform: scale(1.1); /* Картинка чуть увеличивается «под стеклом» */
+  transform: scale(1.1); 
 }
 
-/* КОНТЕНТ ВНУТРИ ОВЕРЛЕЯ */
+
 .overlay-content {
   width: 100%;
   text-align: left;
@@ -114,7 +142,6 @@
   color: #ddd;
   line-height: 1.4;
   margin-bottom: 15px;
-  /* Обрезка текста */
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
@@ -162,7 +189,7 @@
 }
 
 .anime-card:hover .card-title-external {
-  color: #ff4081; /* Название подсвечивается при наведении на всю карточку */
+  color: #ff4081;
 }
 
 .sub-title {

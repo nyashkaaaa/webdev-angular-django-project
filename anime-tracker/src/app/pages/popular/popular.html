@@ -1,23 +1,40 @@
 <main class="container">
-  
+
   <section class="anime-section">
-    <h3> Самое популярное </h3>
+    <h3>Самое популярное</h3>
     <h2 class="section-title">Популярное</h2>
-    
+
     <div class="anime-grid">
-      <div class="anime-card" *ngFor="let anime of allAnimes">
+      <div class="anime-card" *ngFor="let anime of allAnimes" (click)="goToDetail($event, anime.id)">
+
         <div class="card-image-wrapper">
           <img [src]="anime.image_url" [alt]="anime.title">
         </div>
         <div class="anime-info">
           <p class="anime-name">{{ anime.title }}</p>
         </div>
+
+
+        <div class="hover-popup">
+          <img class="hover-popup-image" [src]="anime.image_url" [alt]="anime.title">
+          <div class="hover-popup-body">
+            <p class="hover-popup-title">{{ anime.title }}</p>
+            <p class="hover-popup-meta">{{ anime.release_year }}</p>
+            <p class="hover-popup-meta">{{ anime.episodes }} серий</p>
+            <p class="hover-popup-meta" *ngIf="anime.ongoing">Онгоинг</p>
+            <p class="hover-popup-meta" *ngIf="!anime.ongoing">Завершено</p>
+            <p class="hover-popup-description">{{ anime.description }}</p>
+            <div class="hover-popup-actions">
+              <button class="btn-play" title="Смотреть" (click)="$event.stopPropagation()">▶</button>
+              <button title="Закладки" (click)="$event.stopPropagation()">🔖</button>
+              <button title="Добавить в список" (click)="$event.stopPropagation(); addToList(anime.id)">＋</button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <div *ngIf="allAnimes.length === 0" class="loading-text">
-    Подключаемся к базе Applevein...
-  </div>
 
 </main>

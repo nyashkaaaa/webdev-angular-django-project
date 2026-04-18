@@ -1,26 +1,28 @@
+/* ГЛАВНЫЙ КОНТЕЙНЕР */
 .login-split-container {
   display: flex;
   width: 100%;
-  min-height: 100vh; 
+  min-height: 100vh;
   margin: 0;
   padding: 0;
-  overflow-y: auto; 
   background-color: #121212;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
 }
 
-
+/* КАРТИНКА СЛЕВА */
 .login-image-side {
   flex: 1;
   position: relative;
-  background-color: #121212;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .login-side-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
-  opacity: 0.8; 
+  opacity: 0.7;
 }
 
 .img-overlay {
@@ -29,13 +31,12 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to left, #121212, transparent, rgba(18, 18, 18, 0.4));
+  background: linear-gradient(to right, transparent, #121212 98%);
 }
-
 
 .image-text-content {
   position: absolute;
-  bottom: 8%;
+  bottom: 10%;
   left: 50%;
   transform: translateX(-50%);
   width: 80%;
@@ -45,101 +46,95 @@
 
 .image-text-content p {
   color: white;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 300;
   text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-  opacity: 0.8;
   line-height: 1.6;
 }
 
-
+/* ФОРМА СПРАВА */
 .login-form-side {
-  flex: 1; 
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 40px;
-  z-index: 2;
-  background-color: #121212;
 }
 
 .login-card {
   background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 40px;
-  border-radius: 15px;
+  border-radius: 24px;
   width: 100%;
   max-width: 400px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
   text-align: center;
 }
 
 .login-header h2 {
   color: white;
-  font-size: 28px;
-  margin: 15px 0 5px;
+  font-size: 30px;
+  margin-bottom: 8px;
+  font-weight: 600;
 }
 
 .login-header p {
-  color: #aaa;
+  color: #888;
   font-size: 14px;
   margin-bottom: 30px;
 }
 
-.form-logo {
-  width: 60px;
-  height: auto;
-  margin-bottom: 10px;
-  object-fit: contain;
-  filter: drop-shadow(0 0 5px rgba(255, 64, 129, 0.5)); 
-}
-
-
+/* ИНПУТЫ */
 .input-group {
   text-align: left;
-  margin-bottom: 15px; 
+  margin-bottom: 20px;
 }
 
 .input-group label {
+  color: #ccc;
+  font-size: 13px;
   display: block;
-  color: #ddd;
-  font-size: 14px;
-  margin-bottom: 12px; 
-  font-weight: 500;
+  margin-bottom: 8px;
+  margin-left: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .input-group input {
   width: 100%;
-  padding: 14px 15px;
-  background: rgba(255, 255, 255, 0.08);
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.07);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
+  border-radius: 12px;
   color: white;
-  outline: none;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  font-size: 15px;
 }
 
 .input-group input:focus {
+  outline: none;
   border-color: #ff4081;
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 0 10px rgba(255, 64, 129, 0.2);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 0 4px rgba(255, 64, 129, 0.1);
 }
 
-
+/* ОПЦИИ (Remember me & Forgot) */
 .form-options {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 25px;
   font-size: 13px;
+  margin-bottom: 25px;
 }
 
 .remember-me {
+  color: #888;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  color: #aaa;
-  cursor: pointer;
 }
 
 .remember-me input {
@@ -150,38 +145,37 @@
 .forgot-password {
   color: #ff4081;
   text-decoration: none;
-  transition: 0.3s;
+  font-weight: 500;
 }
 
 .forgot-password:hover {
   text-decoration: underline;
 }
 
-
+/* КНОПКА LOGIN */
 .submit-btn {
   width: 100%;
-  padding: 12px;
-  background-color: #ff4081;
+  padding: 14px;
+  background: #ff4081;
   color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: 12px;
   font-weight: 600;
+  font-size: 16px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
 .submit-btn:hover {
-  background-color: #e91e63;
+  background: #e91e63;
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(255, 64, 129, 0.4);
+  box-shadow: 0 5px 15px rgba(255, 64, 129, 0.3);
 }
 
-
+/* РАЗДЕЛИТЕЛЬ */
 .divider {
-  margin: 25px 0;
+  margin: 30px 0;
   position: relative;
-  text-align: center;
 }
 
 .divider::before {
@@ -196,52 +190,62 @@
 
 .divider span {
   position: relative;
-  background: #1a1a1a;
+  background: #1a1a1a; 
   padding: 0 15px;
   color: #666;
   font-size: 12px;
   text-transform: uppercase;
 }
 
+/* КНОПКА GOOGLE */
 .social-login {
-  margin-bottom: 20px;
-}
-
-.social-btn {
+  margin-top: 20px;
   width: 100%;
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  color: white;
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 10px;
-  cursor: pointer;
-  transition: 0.3s;
+  align-items: center;
 }
 
-.social-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
+#googleBtn {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
 }
 
+
+#googleBtn iframe {
+  margin: 0 auto !important;
+  border-radius: 12px !important;
+}
+
+/* ФУТЕР */
 .login-footer {
-  margin-top: 25px;
+  margin-top: 30px;
+  color: #888;
   font-size: 14px;
-  color: #aaa;
 }
 
 .login-footer a {
   color: #ff4081;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
+  margin-left: 5px;
 }
 
+.login-footer a:hover {
+  text-decoration: underline;
+}
 
+/* АДАПТИВНОСТЬ */
 @media (max-width: 900px) {
   .login-image-side {
-    display: none;
+    display: none; 
+  }
+  .login-card {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 20px;
   }
 }
-
