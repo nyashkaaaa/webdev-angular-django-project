@@ -1,7 +1,18 @@
 from pathlib import Path
 from datetime import timedelta
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Загружаем .env файл
+env_file = BASE_DIR / '.env'
+if env_file.exists():
+    with open(env_file) as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith('#') and '=' in line:
+                key, _, value = line.partition('=')
+                os.environ.setdefault(key.strip(), value.strip())
 
 SECRET_KEY = 'your-secret-key'
 DEBUG = True
