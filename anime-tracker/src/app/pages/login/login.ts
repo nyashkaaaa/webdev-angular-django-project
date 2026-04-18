@@ -57,32 +57,34 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    if (!this.username || !this.password) {
-      alert('Пожалуйста, заполните все поля');
-      return;
-    }
-
-    this.isLoading = true;
-
-    // Отправляем данные на бэкенд
-    // Мы передаем username, даже если в инпуте ввели почту
-    const credentials = {
-      username: this.username, 
-      password: this.password
-    };
-
-    this.api.login(credentials).subscribe({
-      next: (response: any) => {
-        console.log('Успешный вход!', response);
-        localStorage.setItem('token', response.access);
-        localStorage.setItem('username', this.username);
-        this.router.navigate(['/anime']);
-      },
-      error: (err) => {
-        this.isLoading = false;
-        console.error('Ошибка логина:', err);
-        alert('Неверный логин или пароль');
-      }
-    });
+  if (!this.username || !this.password) {
+    alert('Пожалуйста, заполните все поля');
+    return;
   }
+
+  this.isLoading = true;
+
+  const credentials = {
+    username: this.username,
+    password: this.password
+  };
+
+  this.api.login(credentials).subscribe({
+    next: (response: any) => {
+      console.log('Успешный вход!', response);
+
+      localStorage.setItem('token', response.access);
+      localStorage.setItem('refresh', response.refresh);
+      localStorage.setItem('username', this.username);
+
+      this.isLoading = false;
+      this.router.navigate(['/anime']);
+    },
+    error: (err) => {
+      this.isLoading = false;
+      console.error('Ошибка логина:', err);
+      alert('Неверный логин или пароль');
+    }
+  });
+}
 }
