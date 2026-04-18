@@ -3,7 +3,9 @@ from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticate
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-
+from rest_framework.generics import ListCreateAPIView
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
 from .models import *
 from .serializers import *
 
@@ -57,20 +59,15 @@ def user_anime_list(request):
 
 
 # CBV
-class AnimeListCreateAPIView(APIView):
+class AnimeListCreateAPIView(ListCreateAPIView):
+    queryset = Anime.objects.all()
+    serializer_class = AnimeSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-    def get(self, request):
-        anime = Anime.objects.all()
-        serializer = AnimeSerializer(anime, many=True)
-        return Response(serializer.data)
-
-    def post(self, request):
-        serializer = AnimeSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['ongoing', 'release_year', 'genres']
+    search_fields = ['title', 'description']
+    ordering_fields = ['release_year', 'episodes']
 
 
 class AnimeDetailAPIView(APIView):
