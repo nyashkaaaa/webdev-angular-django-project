@@ -121,7 +121,7 @@
             "header": [
               {
                 "key": "Authorization",
-                "value": "Token 0b448d1a6c7dec4ec5fc6c9786fc7c82df804921",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzc2NTIxMjI0LCJpYXQiOjE3NzY1MTc2MjQsImp0aSI6ImFhYWJmZjc0YTViNjRkM2JhNzg2OGRlNGQ5N2JiZDE5IiwidXNlcl9pZCI6IjEifQ.ftxVUZsw-NDyFFEmNm8Xq9EJLhKzuQndapfZCiA5nxQ",
                 "type": "text"
               }
             ],
@@ -185,7 +185,7 @@
             "header": [
               {
                 "key": "Authorization",
-                "value": "Token 0b448d1a6c7dec4ec5fc6c9786fc7c82df804921",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzc2NTIxMjI0LCJpYXQiOjE3NzY1MTc2MjQsImp0aSI6ImFhYWJmZjc0YTViNjRkM2JhNzg2OGRlNGQ5N2JiZDE5IiwidXNlcl9pZCI6IjEifQ.ftxVUZsw-NDyFFEmNm8Xq9EJLhKzuQndapfZCiA5nxQ",
                 "type": "text"
               }
             ],
@@ -225,7 +225,7 @@
             "header": [
               {
                 "key": "Authorization",
-                "value": "Token {{token}}",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzc2NTIxMjI0LCJpYXQiOjE3NzY1MTc2MjQsImp0aSI6ImFhYWJmZjc0YTViNjRkM2JhNzg2OGRlNGQ5N2JiZDE5IiwidXNlcl9pZCI6IjEifQ.ftxVUZsw-NDyFFEmNm8Xq9EJLhKzuQndapfZCiA5nxQ",
                 "type": "text"
               }
             ],
@@ -332,7 +332,7 @@
             "header": [
               {
                 "key": "Authorization",
-                "value": "Token  0b448d1a6c7dec4ec5fc6c9786fc7c82df804921",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzc2NTIxMjI0LCJpYXQiOjE3NzY1MTc2MjQsImp0aSI6ImFhYWJmZjc0YTViNjRkM2JhNzg2OGRlNGQ5N2JiZDE5IiwidXNlcl9pZCI6IjEifQ.ftxVUZsw-NDyFFEmNm8Xq9EJLhKzuQndapfZCiA5nxQ",
                 "type": "text"
               },
               {
@@ -405,7 +405,7 @@
             "header": [
               {
                 "key": "Authorization",
-                "value": "Token  0b448d1a6c7dec4ec5fc6c9786fc7c82df804921",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzc2NTIxMjI0LCJpYXQiOjE3NzY1MTc2MjQsImp0aSI6ImFhYWJmZjc0YTViNjRkM2JhNzg2OGRlNGQ5N2JiZDE5IiwidXNlcl9pZCI6IjEifQ.ftxVUZsw-NDyFFEmNm8Xq9EJLhKzuQndapfZCiA5nxQ",
                 "type": "text"
               },
               {
@@ -475,7 +475,7 @@
       "value": ""
     },
     {
-      "key": "token",
+      "key": "Bearer",
       "value": ""
     },
     {

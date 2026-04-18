@@ -5,9 +5,8 @@ from .views import (
     user_anime_list,
     AnimeListCreateAPIView,
     AnimeDetailAPIView,
-    login_view,
-    logout_view
 )
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
     path('genres/', genre_list),
@@ -15,6 +14,7 @@ urlpatterns = [
     path('my-list/', user_anime_list),
     path('anime/', AnimeListCreateAPIView.as_view()),
     path('anime/<int:pk>/', AnimeDetailAPIView.as_view()),
-    path('login/', login_view),
-    path('logout/', logout_view),
+
+    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
