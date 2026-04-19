@@ -15,6 +15,9 @@ import { ChatBotComponent } from './chat-bot/chat-bot.component';
 })
 export class AppComponent implements OnInit {
   showVideo = false;
+  showSearch = false;
+  isDropdownOpen = false;
+  isProfileMenuOpen = false;
   videoUrl: SafeResourceUrl;
   genres: { id: number; name: string }[] = [];
 
@@ -31,9 +34,35 @@ export class AppComponent implements OnInit {
     });
   }
 
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+  toggleProfileMenu(event: Event) {
+    event.stopPropagation();
+    if (this.isLoggedIn()) {
+      this.router.navigate(['/profile']);
+      this.isProfileMenuOpen = false;
+    } else {
+      this.isDropdownOpen = false;
+      this.isProfileMenuOpen = !this.isProfileMenuOpen;
+    }
+  }
+
   filterByGenre(genre: { id: number; name: string }) {
     this.isDropdownOpen = false;
     this.router.navigate(['/anime'], { queryParams: { genres: genre.id, genreName: genre.name } });
+  }
+
+  toggleDropdown(event: Event) {
+    event.stopPropagation();
+    this.isProfileMenuOpen = false;
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  closeAllMenus() {
+    this.isDropdownOpen = false;
+    this.isProfileMenuOpen = false;
   }
 
   openEasterEgg(event: Event) {
@@ -45,15 +74,4 @@ export class AppComponent implements OnInit {
   closeVideo() {
     this.showVideo = false;
   }
-
-  isDropdownOpen = false;
-  toggleDropdown(event: Event) {
-    event.stopPropagation();
-    this.isDropdownOpen = !this.isDropdownOpen;
-  }
-  closeDropdown() {
-    this.isDropdownOpen = false;
-  }
-
-  showSearch = false;
 }

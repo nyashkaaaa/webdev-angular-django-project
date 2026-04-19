@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { RouterLink } from '@angular/router';
+import { RouterModule, RouterLink } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ProfileSettingsComponent } from '../profile-settings/profile-settings';
 
 @Component({
@@ -16,10 +15,11 @@ export class ProfileComponent implements OnInit {
   activeTab: string = 'list';
   activeStatus: string = 'all';
   viewMode: 'list' | 'grid' = 'list';
+  showSettings = false;
 
   user = {
-    username: 'Отаку',
-    level: "1",
+    username: localStorage.getItem('username') || 'Отаку',
+    level: '1',
     avatar: '',
     totalAnime: 0,
     totalEpisodes: 0,
@@ -38,11 +38,7 @@ export class ProfileComponent implements OnInit {
   };
 
   statusCounts: Record<string, number> = {
-    all: 0,
-    watching: 0,
-    completed: 0,
-    planned: 0,
-    dropped: 0,
+    all: 0, watching: 0, completed: 0, planned: 0, dropped: 0,
   };
 
   private apiUrl = 'http://127.0.0.1:8000/api/';
@@ -50,7 +46,11 @@ export class ProfileComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<any[]>(`${this.apiUrl}my-list/`).subscribe({
+    const token = localStorage.getItem('token');
+    if (!token) return;
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+
+    this.http.get<any[]>(`${this.apiUrl}my-list/`, { headers }).subscribe({
       next: (data) => {
         this.animeList = data;
         this.calcStats();
@@ -85,11 +85,8 @@ export class ProfileComponent implements OnInit {
     this.activeTab = tab;
   }
 
-  showSettings = false;
-
   onSettingsSave(data: any) {
     if (data.username) this.user.username = data.username;
     if (data.avatarPreview) this.user.avatar = data.avatarPreview;
-    console.log('Сохранено:', data);
   }
 }

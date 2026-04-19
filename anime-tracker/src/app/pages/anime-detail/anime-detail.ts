@@ -3,9 +3,10 @@ import { ApiService } from '../../services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common'; 
 import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-anime-detail',
-  standalone: true,
+  standalone: true, 
   imports: [CommonModule, FormsModule],
   templateUrl: './anime-detail.html',
   styleUrl: './anime-detail.css',

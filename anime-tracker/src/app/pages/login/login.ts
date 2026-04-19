@@ -13,10 +13,8 @@ declare var google: any;
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-
 export class LoginComponent implements OnInit {
-  // Изменим название переменной на username, чтобы она совпадала с ожиданиями Django
-  username = ''; 
+  username = '';
   password = '';
   isLoading = false;
 
@@ -24,13 +22,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.initGoogle();
-    // Рендеринг кнопки Google (твой код остается)
-    if (typeof google !== 'undefined') {
-      google.accounts.id.renderButton(
-        document.getElementById("googleBtn"),
-        { theme: "outline", size: "large", width: 320 }
-      );
-    }
+    setTimeout(() => {
+      if (typeof google !== 'undefined') {
+        google.accounts.id.renderButton(
+          document.getElementById('googleBtn'),
+          { theme: 'outline', size: 'large', width: 320 }
+        );
+      }
+    }, 300);
   }
 
   initGoogle() {
@@ -57,34 +56,22 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-  if (!this.username || !this.password) {
-    alert('Пожалуйста, заполните все поля');
-    return;
-  }
-
-  this.isLoading = true;
-
-  const credentials = {
-    username: this.username,
-    password: this.password
-  };
-
-  this.api.login(credentials).subscribe({
-    next: (response: any) => {
-      console.log('Успешный вход!', response);
-
-      localStorage.setItem('token', response.access);
-      localStorage.setItem('refresh', response.refresh);
-      localStorage.setItem('username', this.username);
-
-      this.isLoading = false;
-      this.router.navigate(['/anime']);
-    },
-    error: (err) => {
-      this.isLoading = false;
-      console.error('Ошибка логина:', err);
-      alert('Неверный логин или пароль');
+    if (!this.username || !this.password) {
+      alert('Пожалуйста, заполните все поля');
+      return;
     }
-  });
-}
+    this.isLoading = true;
+    this.api.login({ username: this.username, password: this.password }).subscribe({
+      next: (response: any) => {
+        localStorage.setItem('token', response.access);
+        localStorage.setItem('username', this.username);
+        this.router.navigate(['/anime']);
+      },
+      error: (err) => {
+        this.isLoading = false;
+        console.error('Ошибка логина:', err);
+        alert('Неверный логин или пароль');
+      }
+    });
+  }
 }
