@@ -46,8 +46,10 @@ class UserAnimeList(models.Model):
 
 class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
-    text = models.TextField()
     anime = models.ForeignKey(Anime, on_delete=models.CASCADE, related_name='reviews')
-
-    def __str__(self):
-        return f"Review by {self.user.username} on {self.anime.title}"
+    text = models.TextField()
+    rating = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(10)],
+        null=True,
+        blank=True
+    )

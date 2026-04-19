@@ -1,0 +1,155 @@
+<div class="detail-page" *ngIf="anime">
+
+  <!-- БАННЕР -->
+  <div class="banner" [style.backgroundImage]="'url(' + anime.image_url + ')'">
+    <div class="banner-overlay"></div>
+    <div class="banner-content">
+      <div class="banner-left">
+        <div class="badges">
+          <span class="badge">{{ anime.release_year }}</span>
+          <span class="badge" *ngIf="anime.ongoing">Ongoing</span>
+          <span class="badge" *ngIf="!anime.ongoing">Completed</span>
+          <span class="badge genre" *ngFor="let genre of anime.genres">{{ genre.name }}</span>
+        </div>
+
+        <h1 class="anime-title">{{ anime.title }}</h1>
+
+        <div class="meta-row">
+          <span class="episodes">{{ anime.episodes }} episodes</span>
+        </div>
+
+        <div class="actions">
+          <button class="btn-play">
+            <span class="play-icon">▶</span>
+            Watch
+          </button>
+
+          <!-- Закладка — тот же модал -->
+          <button
+            class="btn-icon"
+            [class.btn-icon--active]="anime.userStatus"
+            title="В закладки"
+            (click)="openStatusModal()"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+            </svg>
+          </button>
+
+          <!-- + Добавить в список -->
+          <button
+            class="btn-icon"
+            [class.btn-icon--active]="anime.userStatus"
+            title="Добавить в список"
+            (click)="openStatusModal()"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Метка текущего статуса -->
+        <div class="current-status-badge" *ngIf="anime.userStatus">
+          <span class="status-dot-inline" [class]="'dot-' + anime.userStatus"></span>
+          {{ $any({ watching: 'Смотрю', completed: 'Просмотрено', planned: 'Запланировано', dropped: 'Брошено' })[$any(anime.userStatus)] }}
+        </div>
+
+        <p class="description">{{ anime.description }}</p>
+      </div>
+
+      <div class="banner-right">
+        <img class="poster" [src]="anime.image_url" [alt]="anime.title">
+      </div>
+    </div>
+  </div>
+
+  <!-- ОТЗЫВЫ -->
+<div class="reviews-section">
+  
+
+  <!-- Форма -->
+  <div class="review-form">
+    <textarea
+      class="review-input"
+      [(ngModel)]="reviewText"
+      placeholder="Напишите ваш отзыв..."
+      rows="4"
+    ></textarea>
+    <div class="review-form-footer">
+      <div class="star-rating">
+        <span
+          *ngFor="let star of [1,2,3,4,5,6,7,8,9,10]"
+          class="star"
+          [class.active]="star <= rating"
+          (click)="rating = star"
+        >★</span>
+        <span class="rating-value" *ngIf="rating > 0">{{ rating }}/10</span>
+      </div>
+      <button class="btn-submit" (click)="submitReview()">Send</button>
+    </div>
+  </div>
+  <h2 class="reviews-title">Reviews</h2>
+
+  <!-- Список отзывов -->
+  <div class="reviews-list" *ngIf="anime.reviews?.length > 0">
+    <div class="review-card" *ngFor="let review of anime.reviews">
+      <div class="review-header">
+        <strong class="review-author">{{ review.user }}</strong>
+        <span class="review-rating" *ngIf="review.rating">⭐️ {{ review.rating }}/10</span>
+      </div>
+      <p class="review-text">{{ review.text }}</p>
+    </div>
+  </div>
+  <p *ngIf="!anime.reviews?.length" style="color: #aaa;">No reviews yet. Be the first!</p>
+</div>
+
+</div>
+
+<!-- МОДАЛ СТАТУСА -->
+@if (showStatusModal) {
+  <div class="status-overlay" (click)="closeStatusModal($event)">
+    <div class="status-modal">
+
+      <div class="modal-anime-info">
+        <img [src]="anime.image_url" class="modal-poster">
+        <div>
+          <p class="modal-title">{{ anime.title }}</p>
+          <p class="modal-episodes">{{ anime.episodes }} episodes</p>
+        </div>
+      </div>
+
+      <div class="status-options">
+        @for (s of statuses; track s.value) {
+          <button
+            class="status-option"
+            [class.active]="currentStatus === s.value"
+            (click)="selectStatus(s.value)"
+          >
+            <span class="status-dot" [class]="'dot-' + s.value"></span>
+            {{ s.label }}
+          </button>
+        }
+      </div>
+
+      <div class="modal-footer">
+        @if (anime.userStatus) {
+          <button class="btn-remove" (click)="removeFromList()">Delete from list</button>
+        }
+        <button class="btn-save" [class.btn-save--success]="saveSuccess" (click)="saveStatus()">
+          {{ saveSuccess ? '✓ Saved!' : 'Save' }}
+        </button>
+      </div>
+
+    </div>
+  </div>
+}
+
+<div class="loading" *ngIf="isLoading">
+  <div class="spinner"></div>
+</div>
+
+<div class="loading" *ngIf="hasError && !isLoading">
+  <p style="color: #aaa; text-align: center;">Failed to load anime. Check your connection to the server.</p>
+</div>

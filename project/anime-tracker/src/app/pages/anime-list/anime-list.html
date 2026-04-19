@@ -1,0 +1,84 @@
+<div class="main-container">
+
+  <!-- Фильтр жанра / поиск -->
+  <div class="filter-bar" *ngIf="selectedGenre || true">
+    <div class="active-genre-tag" *ngIf="selectedGenre">
+      <span>{{ selectedGenre }}</span>
+      <button class="clear-genre" (click)="clearGenre()" title="Сбросить">✕</button>
+    </div>
+    <div class="search-wrap">
+      <input
+        class="search-input"
+        [(ngModel)]="search"
+        (ngModelChange)="applyFilters()"
+        placeholder="Поиск по названию..."
+      />
+    </div>
+  </div>
+
+  <div class="anime-grid">
+    @for (anime of filteredList; track anime.id) {
+      <div class="anime-card" (click)="navigateToAnime(anime.id)">
+        <div class="card-image-wrap">
+          <img [src]="anime.image_url || 'https://via.placeholder.com/300x450'" class="main-poster">
+
+          <div class="info-overlay">
+            <div class="overlay-content">
+              <div class="meta-row">
+                <span class="rating">★ {{ anime.rating || 'N/A' }}</span>
+                <span class="stats">{{ anime.episodes }} episodes</span>
+              </div>
+              <p class="description">{{ anime.description }}</p>
+
+              <div class="action-icons">
+                <button class="icon-btn" (click)="$event.stopPropagation(); openStatusModal(anime)">
+                  <img src="https://img.icons8.com/ios-filled/50/ffffff/bookmark-ribbon.png">
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-title-external">{{ anime.title }}</div>
+      </div>
+    }
+
+    <div class="no-results" *ngIf="filteredList.length === 0 && animeList.length > 0">
+      <p>No results found<span *ngIf="selectedGenre"> in genre "{{ selectedGenre }}"</span></p>
+    </div>
+  </div>
+</div>
+
+@if (selectedAnime) {
+  <div class="status-overlay" (click)="closeModal($event)">
+    <div class="status-modal">
+      <div class="modal-anime-info">
+        <img [src]="selectedAnime.image_url" class="modal-poster">
+        <div>
+          <p class="modal-title">{{ selectedAnime.title }}</p>
+          <p class="modal-episodes">{{ selectedAnime.episodes }} episodes</p>
+        </div>
+      </div>
+
+      <div class="status-options">
+        @for (s of statuses; track s.value) {
+          <button
+            class="status-option"
+            [class.active]="currentStatus === s.value"
+            (click)="selectStatus(s.value)"
+          >
+            <span class="status-dot" [class]="'dot-' + s.value"></span>
+            {{ s.label }}
+          </button>
+        }
+      </div>
+
+      <div class="modal-footer">
+        @if (currentStatus) {
+          <button class="btn-remove" (click)="removeFromList()">Delete from list</button>
+        }
+        <button class="btn-save" (click)="saveStatus()">Save</button>
+      </div>
+    </div>
+  </div>
+}

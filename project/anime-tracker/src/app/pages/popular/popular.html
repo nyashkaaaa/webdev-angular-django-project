@@ -1,0 +1,74 @@
+<main class="container">
+
+  <section class="anime-section">
+    <h3>Most popular</h3>
+    <h2 class="section-title">Popular</h2>
+
+    <div class="anime-grid">
+      <div class="anime-card" *ngFor="let anime of allAnimes" (click)="navigateToAnime(anime.id)">
+
+        <div class="card-image-wrapper">
+          <img [src]="anime.image_url" [alt]="anime.title">
+        </div>
+        <div class="anime-info">
+          <p class="anime-name">{{ anime.title }}</p>
+        </div>
+
+        <div class="hover-popup">
+          <img class="hover-popup-image" [src]="anime.image_url" [alt]="anime.title">
+          <div class="hover-popup-body">
+            <p class="hover-popup-title">{{ anime.title }}</p>
+            <p class="hover-popup-meta">{{ anime.release_year }}</p>
+            <p class="hover-popup-meta">{{ anime.episodes }} episodes</p>
+            <p class="hover-popup-meta" *ngIf="anime.ongoing">Ongoing</p>
+            <p class="hover-popup-meta" *ngIf="!anime.ongoing">Completed</p>
+            <p class="hover-popup-description">{{ anime.description }}</p>
+            <div class="hover-popup-actions">
+              <button class="btn-play" title="Watch" (click)="$event.stopPropagation()">▶</button>
+              <button title="Add" (click)="$event.stopPropagation(); openStatusModal(anime)">＋</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div *ngIf="isLoading" class="loading-text">Loading...</div>
+  <div *ngIf="hasError" class="loading-text">Failed to connect to the server. Please check if Django is running.</div>
+
+</main>
+
+@if (selectedAnime) {
+  <div class="status-overlay" (click)="closeModal($event)">
+    <div class="status-modal">
+      <div class="modal-anime-info">
+        <img [src]="selectedAnime.image_url" class="modal-poster">
+        <div>
+          <p class="modal-title">{{ selectedAnime.title }}</p>
+          <p class="modal-episodes">{{ selectedAnime.episodes }} episodes</p>
+        </div>
+      </div>
+
+      <div class="status-options">
+        @for (s of statuses; track s.value) {
+          <button
+            class="status-option"
+            [class.active]="currentStatus === s.value"
+            (click)="selectStatus(s.value)"
+          >
+            <span class="status-dot" [class]="'dot-' + s.value"></span>
+            {{ s.label }}
+          </button>
+        }
+      </div>
+
+      <div class="modal-footer">
+        @if (currentStatus) {
+          <button class="btn-remove" (click)="removeFromList()">Remove from list</button>
+        }
+        <button class="btn-save" (click)="saveStatus()">Save</button>
+      </div>
+    </div>
+  </div>
+}

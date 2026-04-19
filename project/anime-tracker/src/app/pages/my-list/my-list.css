@@ -1,0 +1,211 @@
+.mylist-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  color: #fff;
+}
+
+.mylist-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.mylist-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.mylist-count {
+  font-size: 14px;
+  color: #555;
+  font-weight: 500;
+}
+
+/* ТАБЫ */
+.mylist-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: transparent;
+  color: #888;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.tab-btn:hover {
+  border-color: rgba(255,255,255,0.3);
+  color: #fff;
+}
+
+.tab-btn.active {
+  background: #f47521;
+  border-color: #f47521;
+  color: #fff;
+}
+
+.tab-count {
+  background: rgba(255,255,255,0.15);
+  border-radius: 10px;
+  padding: 1px 7px;
+  font-size: 11px;
+}
+
+.tab-btn.active .tab-count {
+  background: rgba(0,0,0,0.2);
+}
+
+/* СТРОКИ АНИМЕ */
+.anime-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.anime-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: #111;
+  transition: background 0.15s;
+}
+
+.anime-row:hover {
+  background: #1a1a1a;
+}
+
+.row-poster {
+  width: 44px;
+  height: 62px;
+  object-fit: cover;
+  border-radius: 5px;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.row-poster:hover { opacity: 0.8; }
+
+.row-info {
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.row-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s;
+}
+
+.row-info:hover .row-title { color: #f47521; }
+
+.row-meta {
+  font-size: 12px;
+  color: #555;
+  margin-top: 3px;
+}
+
+/* СТАТУС */
+.row-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot-watching  { background: #4caf50; }
+.dot-completed { background: #2196f3; }
+.dot-planned   { background: #ffc107; }
+.dot-dropped   { background: #f44336; }
+
+.status-select {
+  background: #1e1e1e;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  color: #ccc;
+  font-size: 13px;
+  padding: 5px 10px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.status-select:focus { border-color: #f47521; }
+
+/* УДАЛИТЬ */
+.btn-delete {
+  background: transparent;
+  border: none;
+  color: #444;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s, background 0.2s;
+  flex-shrink: 0;
+}
+
+.btn-delete:hover {
+  color: #f44336;
+  background: rgba(244, 67, 54, 0.1);
+}
+
+/* ПУСТО */
+.empty-state {
+  text-align: center;
+  padding: 80px 0;
+}
+
+.empty-icon { font-size: 48px; margin-bottom: 16px; }
+
+.empty-text {
+  color: #555;
+  font-size: 15px;
+}
+
+/* ЗАГРУЗКА */
+.loading-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 80px 0;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(255,255,255,0.1);
+  border-top-color: #f47521;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }

@@ -1,0 +1,76 @@
+<div class="mylist-page">
+
+  <div class="mylist-header">
+    <h1 class="mylist-title">My List</h1>
+    <span class="mylist-count">{{ myList.length }} anime</span>
+  </div>
+
+  <!-- Tabs -->
+  <div class="mylist-tabs">
+    <button
+      *ngFor="let tab of tabs"
+      class="tab-btn"
+      [class.active]="activeTab === tab.key"
+      (click)="activeTab = tab.key"
+    >
+      {{ tab.label }}
+      <span class="tab-count">{{ countOf(tab.key) }}</span>
+    </button>
+  </div>
+  
+
+  <!-- Loading -->
+  <div class="loading-wrap" *ngIf="isLoading">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Empty -->
+  <div class="empty-state" *ngIf="!isLoading && filtered.length === 0">
+    <div class="empty-icon">📋</div>
+    <p class="empty-text">
+      {{ activeTab === 'all' ? 'The list is empty — add anime using the "+" button' : 'No anime with this status' }}
+    </p>
+  </div>
+
+  <!-- List -->
+  <div class="anime-list" *ngIf="!isLoading && filtered.length > 0">
+    <div class="anime-row" *ngFor="let item of filtered">
+
+      <!-- Poster -->
+      <img
+        class="row-poster"
+        [src]="item.anime_detail?.image_url"
+        [alt]="item.anime_detail?.title"
+        (click)="goToAnime(item.anime_detail?.id)"
+      >
+
+      <div class="row-info" (click)="goToAnime(item.anime_detail?.id)">
+        <div class="row-title">{{ item.anime_detail?.title }}</div>
+        <div class="row-meta">{{ item.anime_detail?.release_year }} · {{ item.anime_detail?.episodes }} episodes</div>
+      </div>
+
+      <!-- Status -->
+      <div class="row-status">
+        <span class="status-dot" [class]="'dot-' + item.status"></span>
+        <select class="status-select" [(ngModel)]="item.status" (change)="changeStatus(item, item.status)">
+          <option value="watching">Watching</option>
+          <option value="completed">Completed</option>
+          <option value="planned">Planned</option>
+          <option value="dropped">Dropped</option>
+        </select>
+      </div>
+
+      <!-- Delete -->
+      <button class="btn-delete" (click)="delete(item)" title="Remove from list">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="3 6 5 6 21 6"/>
+          <path d="M19 6l-1 14H6L5 6"/>
+          <path d="M10 11v6M14 11v6"/>
+          <path d="M9 6V4h6v2"/>
+        </svg>
+      </button>
+
+    </div>
+  </div>
+
+</div>
