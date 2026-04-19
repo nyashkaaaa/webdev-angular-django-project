@@ -12,7 +12,6 @@ import { RouterLink, Router } from '@angular/router';
   styleUrl: './register.css',
 })
 export class RegisterComponent {
-  // Эти переменные будут связаны с формой через ngModel
   username = '';
   email = '';
   password = '';
@@ -45,9 +44,7 @@ export class RegisterComponent {
         this.isLoading = false;
         console.error('Полная ошибка:', err);
         
-        // Достаем точный ответ от Django
         if (err.error) {
-          // Превращаем JSON-ошибку от сервера в текст
           alert('Ответ сервера: ' + JSON.stringify(err.error, null, 2));
         } else {
           alert('Ошибка соединения с сервером');

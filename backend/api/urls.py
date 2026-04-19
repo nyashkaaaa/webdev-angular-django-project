@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+
 from .views import (
     genre_list,
     review_list_create,
@@ -10,6 +11,7 @@ from .views import (
 )
 
 urlpatterns = [
+    path('chat/', views.chat_bot),
     path('genres/', genre_list),
     path('reviews/', review_list_create),
     path('user-anime-list/', views.user_anime_list_list),  # ← добавим эту функцию
@@ -19,4 +21,6 @@ urlpatterns = [
     path('anime/<int:pk>/reviews/', add_review),
     path('register/', views.register_user, name='register'),
     path('login/', views.login_user, name='login'),
+    path('profile/', views.profile_detail),
+    path('my-reviews/', views.my_reviews),
 ]

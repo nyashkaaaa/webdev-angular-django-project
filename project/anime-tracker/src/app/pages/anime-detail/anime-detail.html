@@ -1,6 +1,6 @@
 <div class="detail-page" *ngIf="anime">
 
-  <!-- БАННЕР -->
+  
   <div class="banner" [style.backgroundImage]="'url(' + anime.image_url + ')'">
     <div class="banner-overlay"></div>
     <div class="banner-content">
@@ -24,7 +24,7 @@
             Watch
           </button>
 
-          <!-- Закладка — тот же модал -->
+          
           <button
             class="btn-icon"
             [class.btn-icon--active]="anime.userStatus"
@@ -36,7 +36,7 @@
             </svg>
           </button>
 
-          <!-- + Добавить в список -->
+          
           <button
             class="btn-icon"
             [class.btn-icon--active]="anime.userStatus"
@@ -50,7 +50,7 @@
           </button>
         </div>
 
-        <!-- Метка текущего статуса -->
+        
         <div class="current-status-badge" *ngIf="anime.userStatus">
           <span class="status-dot-inline" [class]="'dot-' + anime.userStatus"></span>
           {{ $any({ watching: 'Смотрю', completed: 'Просмотрено', planned: 'Запланировано', dropped: 'Брошено' })[$any(anime.userStatus)] }}
@@ -65,11 +65,11 @@
     </div>
   </div>
 
-  <!-- ОТЗЫВЫ -->
+  
 <div class="reviews-section">
   
 
-  <!-- Форма -->
+  
   <div class="review-form">
     <textarea
       class="review-input"
@@ -92,7 +92,7 @@
   </div>
   <h2 class="reviews-title">Reviews</h2>
 
-  <!-- Список отзывов -->
+  
   <div class="reviews-list" *ngIf="anime.reviews?.length > 0">
     <div class="review-card" *ngFor="let review of anime.reviews">
       <div class="review-header">
@@ -107,7 +107,6 @@
 
 </div>
 
-<!-- МОДАЛ СТАТУСА -->
 @if (showStatusModal) {
   <div class="status-overlay" (click)="closeStatusModal($event)">
     <div class="status-modal">

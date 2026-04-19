@@ -23,7 +23,6 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
   bootstrap: [AppComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-    // ← убрали provideRouter и provideHttpClient()
   ]
 })
 export class AppModule { }

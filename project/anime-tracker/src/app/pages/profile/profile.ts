@@ -3,13 +3,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
-import { ProfileSettingsComponent } from '../profile-settings/profile-settings';
-import { Token } from '@angular/compiler';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, RouterModule, RouterLink, ProfileSettingsComponent],
+  imports: [CommonModule, RouterModule, RouterLink],
   templateUrl: './profile.html',
   styleUrls: ['./profile.css']
 })
@@ -29,6 +27,7 @@ export class ProfileComponent implements OnInit {
 
   animeList: any[] = [];
   filteredList: any[] = [];
+  reviews: any[] = [];
 
   statusLabels: Record<string, string> = {
     all: 'Все',
@@ -47,45 +46,52 @@ export class ProfileComponent implements OnInit {
   };
 
   achievements = [
-  { icon: '▶', title: 'Первый шаг', description: 'Посмотрите первый эпизод любого аниме', unlocked: true, date: '12 января 2025' },
-  { icon: '🔥', title: 'На огне', description: 'Посмотрите 10 серий за один день', unlocked: true, date: '18 февраля 2025' },
-  { icon: '📚', title: 'Библиотекарь', description: 'Добавьте 10 аниме в свой список', unlocked: true, date: '3 марта 2025' },
-  { icon: '⭐', title: 'Критик', description: 'Оставьте первый отзыв на аниме', unlocked: false, date: '' },
-  { icon: '🎯', title: 'Марафонец', description: 'Просмотрите аниме полностью за 24 часа', unlocked: false, date: '' },
-  { icon: '👁', title: 'Всевидящий', description: 'Просмотрите 50 различных аниме', unlocked: false, date: '' },
-  { icon: '💎', title: 'Коллекционер', description: 'Добавьте 25 аниме в избранное', unlocked: false, date: '' },
-  { icon: '🌙', title: 'Ночной страж', description: 'Смотрите аниме после полуночи 7 дней подряд', unlocked: false, date: '' },
-  { icon: '🏆', title: 'Легенда', description: 'Просмотрите 100 аниме', unlocked: false, date: '' },
-  { icon: '✨', title: 'Отаку', description: 'Проведите на сайте более 500 часов', unlocked: false, date: '' },
-];
+    { icon: '▶', title: 'Первый шаг', description: 'Посмотрите первый эпизод любого аниме', unlocked: true, date: '12 января 2025' },
+    { icon: '🔥', title: 'На огне', description: 'Посмотрите 10 серий за один день', unlocked: true, date: '18 февраля 2025' },
+    { icon: '📚', title: 'Библиотекарь', description: 'Добавьте 10 аниме в свой список', unlocked: true, date: '3 марта 2025' },
+    { icon: '⭐', title: 'Критик', description: 'Оставьте первый отзыв на аниме', unlocked: false, date: '' },
+    { icon: '🎯', title: 'Марафонец', description: 'Просмотрите аниме полностью за 24 часа', unlocked: false, date: '' },
+    { icon: '👁', title: 'Всевидящий', description: 'Просмотрите 50 различных аниме', unlocked: false, date: '' },
+    { icon: '💎', title: 'Коллекционер', description: 'Добавьте 25 аниме в избранное', unlocked: false, date: '' },
+    { icon: '🌙', title: 'Ночной страж', description: 'Смотрите аниме после полуночи 7 дней подряд', unlocked: false, date: '' },
+    { icon: '🏆', title: 'Легенда', description: 'Просмотрите 100 аниме', unlocked: false, date: '' },
+    { icon: '✨', title: 'Отаку', description: 'Проведите на сайте более 500 часов', unlocked: false, date: '' },
+  ];
 
   private apiUrl = 'http://127.0.0.1:8000/api/';
 
   constructor(private http: HttpClient) {}
-  
 
-  reviews: any[] = [];
+  ngOnInit(): void {
+    const token = localStorage.getItem('token');
+    const headers = { 'Authorization': `Token ${token}` };
 
-ngOnInit(): void {
-  const token = localStorage.getItem('token');
-  const headers = { 'Authorization': `Token ${token}` };
+    // 1. Загрузка данных самого профиля
+    this.http.get<any>(`${this.apiUrl}profile/`, { headers }).subscribe({
+      next: (data) => {
+        if (data.username) this.user.username = data.username;
+        if (data.avatar) this.user.avatar = data.avatar; 
+      },
+      error: (err) => console.error('Ошибка загрузки данных пользователя', err)
+    });
 
-  // Список аниме (уже есть)
-  this.http.get<any[]>(`${this.apiUrl}user-anime-list/`, { headers }).subscribe({
-    next: (data) => {
-      this.animeList = data;
-      this.calcStats();
-      this.filterList();
-    },
-    error: (err) => console.error('Ошибка загрузки списка', err)
-  });
+    // 2. Список аниме
+    this.http.get<any[]>(`${this.apiUrl}user-anime-list/`, { headers }).subscribe({
+      next: (data) => {
+        this.animeList = data;
+        this.calcStats();
+        this.filterList();
+      },
+      error: (err) => console.error('Ошибка загрузки списка аниме', err)
+    });
 
-  // Отзывы — добавь это
-  this.http.get<any[]>(`${this.apiUrl}my-reviews/`, { headers }).subscribe({
-    next: (data) => { this.reviews = data; },
-    error: (err) => console.error('Ошибка загрузки отзывов', err)
-  });
-}
+    // 3. Отзывы
+    this.http.get<any[]>(`${this.apiUrl}my-reviews/`, { headers }).subscribe({
+      next: (data) => { this.reviews = data; },
+      error: (err) => console.error('Ошибка загрузки отзывов', err)
+    });
+  } // <-- Вот здесь теперь всё правильно закрывается
+
   calcStats() {
     this.statusCounts['all'] = this.animeList.length;
     ['watching', 'completed', 'planned', 'dropped'].forEach(s => {
@@ -110,13 +116,4 @@ ngOnInit(): void {
   setTab(tab: string) {
     this.activeTab = tab;
   }
-
-  showSettings = false;
-
-  onSettingsSave(data: any) {
-    if (data.username) this.user.username = data.username;
-    if (data.avatarPreview) this.user.avatar = data.avatarPreview;
-    console.log('Сохранено:', data);
-}
-
 }

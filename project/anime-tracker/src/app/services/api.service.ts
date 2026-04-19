@@ -21,7 +21,6 @@ export class ApiService {
     };
   }
 
-  // ===== АВТОРИЗАЦИЯ =====
   login(data: any): Observable<any> {
     return this.http.post(`${this.url}/login/`, data);
   }
@@ -30,12 +29,10 @@ export class ApiService {
     return this.http.post(`${this.url}/register/`, data);
   }
 
-  // ===== ЖАНРЫ =====
   getGenres(): Observable<any[]> {
     return this.http.get<any[]>(`${this.url}/genres/`);
   }
 
-  // ===== АНИМЕ =====
   getAnime(): Observable<any[]> {
     return this.http.get<any[]>(`${this.url}/anime/`);
   }
@@ -44,7 +41,6 @@ export class ApiService {
     return this.http.get(`${this.url}/anime/${id}/`);
   }
 
-  // ===== ОТЗЫВЫ =====
   addReview(animeId: number, data: any) {
   const token = localStorage.getItem('token');
   const headers = new HttpHeaders({
@@ -53,7 +49,6 @@ export class ApiService {
   return this.http.post(`${this.url}/anime/${animeId}/reviews/`, data, { headers });
 }
 
-// ===== СПИСОК ПОЛЬЗОВАТЕЛЯ =====
   getMyList(): Observable<any[]> {
     return this.http.get<any[]>(`${this.url}/user-anime-list/`, this.getHeaders());
   }

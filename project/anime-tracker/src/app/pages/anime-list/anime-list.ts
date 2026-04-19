@@ -29,8 +29,6 @@ export class AnimeListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // combineLatest ждёт ОБА источника — данные API и query-параметры.
-    // Только когда оба готовы — применяет фильтр. Никакой гонки.
     this.sub = combineLatest([
       this.api.getAnime(),
       this.route.queryParams

@@ -41,8 +41,6 @@ export class MyListComponent implements OnInit {
     this.load();
   }
 
-
-
 load() {
   this.isLoading = true;
   this.api.getMyList().subscribe({
@@ -59,7 +57,6 @@ load() {
   });
 }
 
-
   get filtered() {
     if (this.activeTab === 'all') return this.myList;
     return this.myList.filter(i => i.status === this.activeTab);
@@ -72,11 +69,9 @@ load() {
 
   changeStatus(item: any, newStatus: string) {
   this.api.addToList({ anime: item.anime, status: newStatus }).subscribe({
-    // item.anime остаётся числом (ID) для отправки на сервер
     next: () => { item.status = newStatus; }
   });
 }
-
 
   delete(item: any) {
     this.api.deleteFromList(item.id).subscribe({

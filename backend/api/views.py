@@ -203,3 +203,31 @@ def login_user(request):
         })
     else:
         return Response({'error': 'Неверный логин или пароль'}, status=status.HTTP_400_BAD_REQUEST)
+    
+
+# Добавь это в views.py
+
+@api_view(['GET', 'PATCH'])
+@permission_classes([IsAuthenticated])
+def profile_detail(request):
+    profile = request.user.profile
+    
+    if request.method == 'GET':
+        serializer = ProfileSerializer(profile)
+        return Response(serializer.data)
+    
+    elif request.method == 'PATCH':
+        # partial=True позволяет обновлять только ник или только аватар
+        serializer = ProfileSerializer(profile, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def my_reviews(request):
+    # Получаем только отзывы текущего пользователя
+    reviews = Review.objects.filter(user=request.user)
+    serializer = ReviewSerializer(reviews, many=True)
+    return Response(serializer.data)

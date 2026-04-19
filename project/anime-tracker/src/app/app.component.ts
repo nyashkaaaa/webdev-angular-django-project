@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   isProfileMenuOpen = false;
   videoUrl: SafeResourceUrl;
   genres: any[] = [];
+  currentYear = new Date().getFullYear();
 
   constructor(public router: Router, private sanitizer: DomSanitizer, private api: ApiService) {
     const videoId = 'T-qGlh4joXU';
@@ -33,20 +34,22 @@ export class AppComponent implements OnInit {
       error: () => {}
     });
   }
+
   logout() {
-  localStorage.removeItem('token');
-  localStorage.removeItem('user');
-  window.location.href = '/login';
-}
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    window.location.href = '/login';
+  }
+
   isLoggedIn(): boolean {
-  return !!localStorage.getItem('token');
-}
+    return !!localStorage.getItem('token');
+  }
 
   toggleProfileMenu(event: Event) {
-  event.stopPropagation();
-  this.isDropdownOpen = false;
-  this.isProfileMenuOpen = !this.isProfileMenuOpen;
-}
+    event.stopPropagation();
+    this.isDropdownOpen = false;
+    this.isProfileMenuOpen = !this.isProfileMenuOpen;
+  }
 
   toggleDropdown(event: Event) {
     event.stopPropagation();

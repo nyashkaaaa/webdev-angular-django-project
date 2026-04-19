@@ -41,8 +41,6 @@ export class ProfileSettingsComponent {
 
   onSave() {
     console.log('Сохранение настроек:', this.form);
-    // Здесь будет вызов твоего ApiService для отправки данных в Django
-    // После успешного сохранения возвращаемся в профиль:
     this.router.navigate(['/profile']);
   }
 }
