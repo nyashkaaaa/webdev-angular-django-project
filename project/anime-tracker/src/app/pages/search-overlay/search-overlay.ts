@@ -27,10 +27,10 @@ export class SearchOverlayComponent implements OnInit {
   currentStatus: string = '';
 
   statuses = [
-    { label: 'Смотрю',        value: 'watching'   },
-    { label: 'Просмотрено',   value: 'completed'  },
-    { label: 'Запланировано', value: 'planned'     },
-    { label: 'Брошено',       value: 'dropped'     },
+    { label: 'Watching',  value: 'watching'  },
+    { label: 'Completed', value: 'completed' },
+    { label: 'Planned',   value: 'planned'   },
+    { label: 'Dropped',   value: 'dropped'   },
   ];
 
   private search$ = new Subject<string>();
@@ -39,32 +39,24 @@ export class SearchOverlayComponent implements OnInit {
   constructor(private http: HttpClient, private api: ApiService, private router: Router) {}
 
   ngOnInit() {
-    this.search$.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      switchMap(q => {
-        if (!q.trim()) return of([]);
-        this.loading = true;
-        return this.http.get<any[]>(`${this.apiUrl}anime/?search=${q}`);
-      })
-    ).subscribe({
-      next: (data) => {
-        this.loading = false;
-        this.allResults = data;
-        this.results = data;
-      },
-      error: () => {
-        this.loading = false;
-        this.allResults = [];
+    this.http.get<any[]>(`${this.apiUrl}anime/`).subscribe({
+      next: (data) => { this.allResults = data; },
+      error: () => { this.allResults = []; }
+    });
+
+    this.search$.pipe(debounceTime(200), distinctUntilChanged()).subscribe(q => {
+      if (!q.trim()) {
+        this.results = [];
+        return;
       }
+      const lower = q.toLowerCase();
+      this.results = this.allResults.filter(a =>
+        a.title.toLowerCase().includes(lower)
+      );
     });
   }
 
   onInput() {
-    if (!this.query.trim()) {
-      this.allResults = [];
-      this.results = [];
-    }
     this.search$.next(this.query);
   }
 

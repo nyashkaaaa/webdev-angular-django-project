@@ -18,7 +18,7 @@
     <div class="spinner" *ngIf="loading"></div>
 
     <ng-container *ngIf="!loading && query.trim()">
-      <div class="results-label" *ngIf="results.length > 0">Лучшие результаты</div>
+      <div class="results-label" *ngIf="results.length > 0">Top results</div>
 
       <div class="results-grid" *ngIf="results.length > 0">
         <div
@@ -54,7 +54,7 @@
       </div>
 
       <div class="no-results" *ngIf="results.length === 0">
-        Ничего не найдено
+        Nothing found
       </div>
     </ng-container>
 
@@ -69,7 +69,7 @@
         <img [src]="selectedAnime.image_url" class="modal-poster">
         <div>
           <p class="modal-title">{{ selectedAnime.title }}</p>
-          <p class="modal-episodes">{{ selectedAnime.episodes }} серий</p>
+          <p class="modal-episodes">{{ selectedAnime.episodes }} episodes</p>
         </div>
       </div>
 
@@ -88,9 +88,9 @@
 
       <div class="modal-footer">
         @if (selectedAnime.userStatus) {
-          <button class="btn-remove" (click)="removeFromList()">Удалить из списка</button>
+          <button class="btn-remove" (click)="removeFromList()">Remove from list</button>
         }
-        <button class="btn-save" (click)="saveStatus()">Сохранить</button>
+        <button class="btn-save" (click)="saveStatus()">Save</button>
       </div>
     </div>
   </div>

@@ -24,10 +24,10 @@ export class AnimeDetailComponent implements OnInit {
   saveSuccess = false;
 
   statuses = [
-    { label: 'Смотрю',        value: 'watching'  },
-    { label: 'Просмотрено',   value: 'completed' },
-    { label: 'Запланировано', value: 'planned'    },
-    { label: 'Брошено',       value: 'dropped'    },
+    { label: 'Watching',  value: 'watching'  },
+    { label: 'Completed', value: 'completed' },
+    { label: 'Planned',   value: 'planned'   },
+    { label: 'Dropped',   value: 'dropped'   },
   ];
 
   constructor(private api: ApiService, private route: ActivatedRoute, private cdr: ChangeDetectorRef) {}
