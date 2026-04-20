@@ -1,6 +1,6 @@
 <div class="main-container">
 
-  
+  <!-- Фильтр жанра / поиск -->
   <div class="filter-bar" *ngIf="selectedGenre || true">
     <div class="active-genre-tag" *ngIf="selectedGenre">
       <span>{{ selectedGenre }}</span>
@@ -11,7 +11,7 @@
         class="search-input"
         [(ngModel)]="search"
         (ngModelChange)="applyFilters()"
-        placeholder="Поиск по названию..."
+        placeholder="Search by title..."
       />
     </div>
   </div>
@@ -25,7 +25,7 @@
           <div class="info-overlay">
             <div class="overlay-content">
               <div class="meta-row">
-                <span class="rating">★ {{ anime.rating || 'N/A' }}</span>
+                <span class="rating">★ {{ anime.avg_rating ?? 'N/A' }}</span>
                 <span class="stats">{{ anime.episodes }} episodes</span>
               </div>
               <p class="description">{{ anime.description }}</p>

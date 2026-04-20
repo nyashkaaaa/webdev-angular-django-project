@@ -6,7 +6,7 @@
         class="search-input"
         [(ngModel)]="query"
         (input)="onInput()"
-        placeholder="Поиск..."
+        placeholder="Search..."
         autofocus
       >
       <button class="search-close" (click)="close.emit()">✕</button>
@@ -61,6 +61,7 @@
   </div>
 </div>
 
+<!-- Модал статуса -->
 @if (selectedAnime) {
   <div class="status-overlay" (click)="closeModal($event)">
     <div class="status-modal">

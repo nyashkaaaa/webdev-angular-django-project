@@ -5,7 +5,7 @@
     <span class="mylist-count">{{ myList.length }} anime</span>
   </div>
 
-  
+  <!-- Tabs -->
   <div class="mylist-tabs">
     <button
       *ngFor="let tab of tabs"
@@ -19,12 +19,12 @@
   </div>
   
 
-  
+  <!-- Loading -->
   <div class="loading-wrap" *ngIf="isLoading">
     <div class="spinner"></div>
   </div>
 
-  
+  <!-- Empty -->
   <div class="empty-state" *ngIf="!isLoading && filtered.length === 0">
     <div class="empty-icon">📋</div>
     <p class="empty-text">
@@ -32,11 +32,11 @@
     </p>
   </div>
 
-  
+  <!-- List -->
   <div class="anime-list" *ngIf="!isLoading && filtered.length > 0">
     <div class="anime-row" *ngFor="let item of filtered">
 
-      
+      <!-- Poster -->
       <img
         class="row-poster"
         [src]="item.anime_detail?.image_url"
@@ -49,7 +49,7 @@
         <div class="row-meta">{{ item.anime_detail?.release_year }} · {{ item.anime_detail?.episodes }} episodes</div>
       </div>
 
-      
+      <!-- Status -->
       <div class="row-status">
         <span class="status-dot" [class]="'dot-' + item.status"></span>
         <select class="status-select" [(ngModel)]="item.status" (change)="changeStatus(item, item.status)">
@@ -60,7 +60,7 @@
         </select>
       </div>
 
-      
+      <!-- Delete -->
       <button class="btn-delete" (click)="delete(item)" title="Remove from list">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polyline points="3 6 5 6 21 6"/>

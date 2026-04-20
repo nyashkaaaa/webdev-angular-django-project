@@ -18,6 +18,7 @@ export class AnimeDetailComponent implements OnInit {
   reviewText: string = '';
   rating: number = 0;
 
+  // Модал статуса
   showStatusModal = false;
   currentStatus: string = '';
   saveSuccess = false;
@@ -101,6 +102,7 @@ submitReview() {
     next: (newReview) => {
       this.reviewText = '';
       this.rating = 0;
+      // Добавляем новый отзыв в список без перезагрузки страницы
       if (!this.anime.reviews) this.anime.reviews = [];
       this.anime.reviews.push(newReview);
       this.cdr.detectChanges();

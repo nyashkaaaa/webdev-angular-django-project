@@ -1,3 +1,5 @@
+import os
+import requests
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
@@ -130,8 +132,8 @@ class AnimeDetailAPIView(APIView):
 
 
 from django.contrib.auth.models import User
-from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # --- РЕГИСТРАЦИЯ ---
 @api_view(['POST'])
@@ -140,11 +142,11 @@ def register_user(request):
     serializer = UserRegistrationSerializer(data=request.data)
     if serializer.is_valid():
         user = serializer.save()
-        # Создаем токен для нового пользователя
-        token, _ = Token.objects.get_or_create(user=user)
+        refresh = RefreshToken.for_user(user)
         return Response({
             'user': {'id': user.id, 'username': user.username},
-            'token': token.key
+            'token': str(refresh.access_token),
+            'refresh': str(refresh),
         }, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -196,38 +198,59 @@ def login_user(request):
     user = authenticate(username=username, password=password)
     
     if user is not None:
-        token, _ = Token.objects.get_or_create(user=user)
+        refresh = RefreshToken.for_user(user)
         return Response({
             'user': {'id': user.id, 'username': user.username},
-            'token': token.key
+            'token': str(refresh.access_token),
+            'refresh': str(refresh),
         })
     else:
         return Response({'error': 'Неверный логин или пароль'}, status=status.HTTP_400_BAD_REQUEST)
-    
 
-# Добавь это в views.py
 
-@api_view(['GET', 'PATCH'])
-@permission_classes([IsAuthenticated])
-def profile_detail(request):
-    profile = request.user.profile
-    
-    if request.method == 'GET':
-        serializer = ProfileSerializer(profile)
-        return Response(serializer.data)
-    
-    elif request.method == 'PATCH':
-        # partial=True позволяет обновлять только ник или только аватар
-        serializer = ProfileSerializer(profile, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def chat_bot(request):
+    history = request.data.get('history', [])
+
+    api_key = os.environ.get('GROQ_API_KEY', '')
+    if not api_key:
+        return Response({'error': 'GROQ_API_KEY not set'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    anime_qs = Anime.objects.prefetch_related('genres').all()
+    catalog_lines = []
+    for a in anime_qs:
+        genres = ', '.join(g.name for g in a.genres.all()) or 'нет данных'
+        catalog_lines.append(f"- {a.title} ({a.release_year}), жанры: {genres}, серий: {a.episodes}")
+    catalog_text = '\n'.join(catalog_lines) if catalog_lines else 'каталог пуст'
+
+    system_prompt = (
+        "You are AniBot — a friendly AI assistant for an anime tracker. "
+        "Always respond in English. "
+        "Below is the current anime catalog on the site:\n\n"
+        f"{catalog_text}\n\n"
+        "Use this data to answer questions and make recommendations about the catalog."
+    )
+
+    messages = [{'role': 'system', 'content': system_prompt}] + history
+
+    resp = requests.post(
+        'https://api.groq.com/openai/v1/chat/completions',
+        headers={'Authorization': f'Bearer {api_key}', 'Content-Type': 'application/json'},
+        json={'model': 'llama-3.3-70b-versatile', 'messages': messages, 'max_tokens': 512},
+        timeout=30,
+    )
+
+    if resp.status_code != 200:
+        return Response({'error': resp.text}, status=status.HTTP_502_BAD_GATEWAY)
+
+    reply = resp.json()['choices'][0]['message']['content']
+    return Response({'reply': reply})
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def my_reviews(request):
-    # Получаем только отзывы текущего пользователя
     reviews = Review.objects.filter(user=request.user)
     serializer = ReviewSerializer(reviews, many=True)
     return Response(serializer.data)

@@ -21,18 +21,18 @@ export class MyListComponent implements OnInit {
   activeTab: TabKey = 'all';
 
   tabs: { key: TabKey; label: string }[] = [
-    { key: 'all',       label: 'Все'           },
-    { key: 'watching',  label: 'Смотрю'        },
-    { key: 'completed', label: 'Просмотрено'   },
-    { key: 'planned',   label: 'Запланировано' },
-    { key: 'dropped',   label: 'Брошено'       },
+    { key: 'all',       label: 'All'       },
+    { key: 'watching',  label: 'Watching'  },
+    { key: 'completed', label: 'Completed' },
+    { key: 'planned',   label: 'Planned'   },
+    { key: 'dropped',   label: 'Dropped'   },
   ];
 
   statusLabels: Record<string, string> = {
-    watching:  'Смотрю',
-    completed: 'Просмотрено',
-    planned:   'Запланировано',
-    dropped:   'Брошено',
+    watching:  'Watching',
+    completed: 'Completed',
+    planned:   'Planned',
+    dropped:   'Dropped',
   };
 
   constructor(private api: ApiService, private router: Router, private cdr: ChangeDetectorRef) {}
@@ -40,6 +40,8 @@ export class MyListComponent implements OnInit {
   ngOnInit() {
     this.load();
   }
+
+
 
 load() {
   this.isLoading = true;
@@ -57,6 +59,7 @@ load() {
   });
 }
 
+
   get filtered() {
     if (this.activeTab === 'all') return this.myList;
     return this.myList.filter(i => i.status === this.activeTab);
@@ -69,9 +72,11 @@ load() {
 
   changeStatus(item: any, newStatus: string) {
   this.api.addToList({ anime: item.anime, status: newStatus }).subscribe({
+    // item.anime остаётся числом (ID) для отправки на сервер
     next: () => { item.status = newStatus; }
   });
 }
+
 
   delete(item: any) {
     this.api.deleteFromList(item.id).subscribe({

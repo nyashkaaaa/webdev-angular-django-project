@@ -30,7 +30,7 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
     this.messages.push({
       role: 'bot',
-      text: 'Hi! I\'m AniBot AI 🤖\nAsk me about the catalog, genres, or request a recommendation!'
+      text: 'Hey! I\'m AniBot AI 🤖\nAsk me about the catalog, genres, or request a recommendation!'
     });
   }
 
