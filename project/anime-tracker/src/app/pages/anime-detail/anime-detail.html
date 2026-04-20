@@ -41,7 +41,7 @@
         <!-- Метка текущего статуса -->
         <div class="current-status-badge" *ngIf="anime.userStatus">
           <span class="status-dot-inline" [class]="'dot-' + anime.userStatus"></span>
-          {{ $any({ watching: 'Смотрю', completed: 'Просмотрено', planned: 'Запланировано', dropped: 'Брошено' })[$any(anime.userStatus)] }}
+          {{ $any({ watching: 'Watching', completed: 'Completed', planned: 'Planned', dropped: 'Dropped' })[$any(anime.userStatus)] }}
         </div>
 
         <p class="description">{{ anime.description }}</p>

@@ -29,11 +29,16 @@ def user_anime_list_list(request):
         return Response(serializer.data)
     
     elif request.method == 'POST':
-        serializer = UserAnimeListSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save(user=request.user)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        anime_id = request.data.get('anime')
+        new_status = request.data.get('status')
+        item, created = UserAnimeList.objects.update_or_create(
+            user=request.user,
+            anime_id=anime_id,
+            defaults={'status': new_status}
+        )
+        serializer = UserAnimeListSerializer(item)
+        status_code = status.HTTP_201_CREATED if created else status.HTTP_200_OK
+        return Response(serializer.data, status=status_code)
 
 @api_view(['GET', 'POST'])
 @permission_classes([AllowAny])
