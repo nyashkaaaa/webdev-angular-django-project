@@ -49,7 +49,7 @@ load() {
     next: (data: any) => {
       this.myList = data;
       this.isLoading = false;
-      this.cdr.detectChanges(); // ← добавь это
+      this.cdr.detectChanges();
     },
     error: (err: any) => {
       console.error('Ошибка:', err);
@@ -72,7 +72,6 @@ load() {
 
   changeStatus(item: any, newStatus: string) {
   this.api.addToList({ anime: item.anime, status: newStatus }).subscribe({
-    // item.anime остаётся числом (ID) для отправки на сервер
     next: () => { item.status = newStatus; }
   });
 }

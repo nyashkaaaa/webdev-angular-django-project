@@ -70,7 +70,6 @@ ngOnInit(): void {
   const token = localStorage.getItem('token');
   const headers = { 'Authorization': `Bearer ${token}` };
 
-  // Список аниме (уже есть)
   this.http.get<any[]>(`${this.apiUrl}user-anime-list/`, { headers }).subscribe({
     next: (data) => {
       this.animeList = data;
@@ -80,7 +79,6 @@ ngOnInit(): void {
     error: (err) => console.error('Ошибка загрузки списка', err)
   });
 
-  // Отзывы — добавь это
   this.http.get<any[]>(`${this.apiUrl}my-reviews/`, { headers }).subscribe({
     next: (data) => { this.reviews = data; },
     error: (err) => console.error('Ошибка загрузки отзывов', err)

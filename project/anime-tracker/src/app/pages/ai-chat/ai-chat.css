@@ -9,7 +9,6 @@
   gap: 12px;
 }
 
-/* Кнопка открытия */
 .chat-toggle-btn {
   width: 56px;
   height: 56px;
@@ -35,7 +34,6 @@
   box-shadow: 0 4px 16px rgba(0,0,0,0.5);
 }
 
-/* Панель чата */
 .chat-panel {
   width: 340px;
   height: 480px;
@@ -54,7 +52,6 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Хедер */
 .chat-header {
   background: #212230;
   padding: 14px 16px;
@@ -95,7 +92,6 @@
   margin-top: 2px;
 }
 
-/* Сообщения */
 .chat-messages {
   flex: 1;
   overflow-y: auto;
@@ -137,7 +133,6 @@
   border-bottom-right-radius: 4px;
 }
 
-/* Typing indicator */
 .typing {
   display: flex;
   align-items: center;
@@ -161,7 +156,6 @@
   30% { transform: translateY(-6px); }
 }
 
-/* Поле ввода */
 .chat-input-area {
   padding: 12px;
   border-top: 1px solid rgba(255,255,255,0.07);

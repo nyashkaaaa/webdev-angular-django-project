@@ -7,7 +7,6 @@
   font-family: 'Nunito', sans-serif;
 }
 
-/* HEADER */
 .profile-header {
   background: #16171e;
   border-bottom: 1px solid rgba(255,255,255,0.07);
@@ -32,7 +31,6 @@
   height: 80px;
   border-radius: 50%;
   background: #1e2028;
-  /* Заменено на розовый */
   border: 2px solid rgba(255, 64, 129, 0.5);
   display: flex;
   align-items: center;
@@ -70,7 +68,6 @@
 }
 
 .level-badge {
-  /* Заменено на розовый */
   background: rgba(255, 64, 129, 0.15);
   border: 1px solid rgba(255, 64, 129, 0.4);
   color: #ff4081;
@@ -130,12 +127,10 @@
 }
 
 .settings-btn:hover {
-  /* Заменено на розовый */
   border-color: #ff4081;
   color: #ff4081;
 }
 
-/* TABS */
 .profile-tabs {
   max-width: 1100px;
   margin: 0 auto;
@@ -159,7 +154,6 @@
 
 .tab-btn.active {
   color: #fff;
-  /* Заменено на розовый */
   border-bottom-color: #ff4081;
 }
 
@@ -167,21 +161,18 @@
   color: #ccc;
 }
 
-/* BODY */
 .profile-body {
   max-width: 1100px;
   margin: 0 auto;
   padding: 32px 40px;
 }
 
-/* LAYOUT */
 .list-layout {
   display: flex;
   gap: 24px;
   align-items: flex-start;
 }
 
-/* SIDEBAR */
 .sidebar {
   width: 200px;
   flex-shrink: 0;
@@ -225,7 +216,6 @@
 }
 
 .sidebar-item.active {
-  /* Заменено на розовый фон */
   background: rgba(255, 64, 129, 0.12);
   color: #ff4081;
 }
@@ -237,7 +227,6 @@
 }
 
 .sidebar-item.active .sidebar-count {
-  /* Заменено на розовый */
   color: #ff4081;
 }
 
@@ -247,12 +236,10 @@
   margin: 12px 0;
 }
 
-/* LIST MAIN */
 .list-main {
   flex: 1;
 }
 
-/* ANIME LIST */
 .anime-list {
   display: flex;
   flex-direction: column;
@@ -322,7 +309,6 @@
 .score-value {
   font-size: 20px;
   font-weight: 800;
-  /* Заменено на розовый */
   color: #ff4081;
 }
 
@@ -331,7 +317,6 @@
   color: #555;
 }
 
-/* GRID */
 .anime-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
@@ -380,7 +365,6 @@
   overflow: hidden;
 }
 
-/* EMPTY / PLACEHOLDER */
 .empty-state {
   text-align: center;
   color: #444;
@@ -399,7 +383,6 @@
   font-size: 14px;
 }
 
-/* ACHIEVEMENTS */
 .achievements-section {
   animation: fadeInUp 0.3s ease;
   display: flex;
@@ -445,7 +428,6 @@
   filter: grayscale(0.5);
 }
 
-/* Левая иконка */
 .ach-icon {
   width: 72px;
   height: 72px;
@@ -466,7 +448,6 @@
   color: #555;
 }
 
-/* Правая часть */
 .ach-info {
   flex: 1;
   display: flex;
@@ -510,7 +491,6 @@
   flex-shrink: 0;
 }
 
-/* REVIEWS */
 .reviews-section {
   display: flex;
   flex-direction: column;

@@ -12,7 +12,6 @@ from .models import *
 from .serializers import *
 
 
-# FBV
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
@@ -76,7 +75,6 @@ def add_review(request, pk):
 
 
 
-# CBV
 class AnimeListCreateAPIView(APIView):
     permission_classes = [AllowAny]
 
@@ -135,7 +133,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 
-# --- РЕГИСТРАЦИЯ ---
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def register_user(request):
@@ -150,7 +147,6 @@ def register_user(request):
         }, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# --- ОБНОВЛЕНИЕ / УДАЛЕНИЕ ЗАПИСИ СПИСКА ---
 @api_view(['PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def user_anime_list_detail(request, pk):
@@ -171,7 +167,6 @@ def user_anime_list_detail(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-# --- ОТЗЫВ К КОНКРЕТНОМУ АНИМЕ ---
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def add_review(request, pk):
@@ -187,14 +182,12 @@ def add_review(request, pk):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# --- ЛОГИН ---
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login_user(request):
     username = request.data.get('username')
     password = request.data.get('password')
     
-    # Проверяем, есть ли такой пользователь
     user = authenticate(username=username, password=password)
     
     if user is not None:

@@ -1,6 +1,5 @@
 <div class="profile-page">
 
-  <!-- ШАПКА ПРОФИЛЯ -->
   <div class="profile-header">
     <div class="profile-header-inner">
       <div class="avatar-wrapper">
@@ -46,7 +45,6 @@
       </button>
     </div>
 
-    <!-- ТАБЫ -->
     <div class="profile-tabs">
       <button class="tab-btn" [class.active]="activeTab === 'list'" (click)="setTab('list')">Anime list</button>
       <button class="tab-btn" [class.active]="activeTab === 'reviews'" (click)="setTab('reviews')">Reviews</button>
@@ -54,13 +52,10 @@
     </div>
   </div>
 
-  <!-- КОНТЕНТ -->
   <div class="profile-body">
 
-    <!-- СПИСОК АНИМЕ -->
     <div *ngIf="activeTab === 'list'" class="list-layout">
 
-      <!-- Боковая панель -->
       <aside class="sidebar">
         <div class="sidebar-title">Lists</div>
         <button
@@ -85,10 +80,8 @@
         </button>
       </aside>
 
-      <!-- Основной контент -->
       <div class="list-main">
 
-        <!-- Список -->
         <div *ngIf="viewMode === 'list'" class="anime-list">
           <div *ngIf="filteredList.length === 0" class="empty-state">
             Empty list
@@ -111,7 +104,6 @@
           </div>
         </div>
 
-        <!-- Плитка -->
         <div *ngIf="viewMode === 'grid'" class="anime-grid">
           <div class="grid-card" *ngFor="let entry of filteredList">
             <img [src]="entry.anime_detail?.image_url" [alt]="entry.anime_detail?.title">
@@ -125,7 +117,6 @@
       </div>
     </div>
 
-    <!-- ОТЗЫВЫ -->
   <div *ngIf="activeTab === 'reviews'" class="reviews-section">
     <div *ngIf="reviews.length === 0" class="empty-state">
       You have no reviews yet.
@@ -138,13 +129,11 @@
     </div>
   </div>
 
-    <!-- ИСТОРИЯ -->
     <div *ngIf="activeTab === 'history'" class="tab-placeholder">
       <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
       <p>History of views will appear here</p>
     </div>
 
-        <!-- В .profile-body добавь после ИСТОРИЯ: -->
     <div *ngIf="activeTab === 'achievements'" class="achievements-section">
       <div class="achievements-grid">
         <div class="achievement-card" *ngFor="let ach of achievements" [class.locked]="!ach.unlocked">

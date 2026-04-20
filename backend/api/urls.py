@@ -13,7 +13,7 @@ from rest_framework_simplejwt.views import TokenRefreshView
 urlpatterns = [
     path('genres/', genre_list),
     path('reviews/', review_list_create),
-    path('user-anime-list/', views.user_anime_list_list),  # ← добавим эту функцию
+    path('user-anime-list/', views.user_anime_list_list),
     path('user-anime-list/<int:pk>/', user_anime_list_detail),
     path('anime/', AnimeListCreateAPIView.as_view()),
     path('anime/<int:pk>/', AnimeDetailAPIView.as_view()),
